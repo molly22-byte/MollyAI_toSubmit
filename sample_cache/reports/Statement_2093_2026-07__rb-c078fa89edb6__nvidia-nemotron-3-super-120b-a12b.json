@@ -1,0 +1,576 @@
+{
+  "card_id": "CARD_1",
+  "month": "2026-07",
+  "statement_date": "2026-07-22",
+  "generated_at": "2026-10-26T19:53:46",
+  "history_months": [
+    "2026-05",
+    "2026-06"
+  ],
+  "had_previous_statement": true,
+  "headline": {
+    "total_due": 40937.4,
+    "previous_total_due": 52386.03,
+    "change": -11448.63,
+    "minimum_due": 11604.68,
+    "due_date": "2026-08-11",
+    "alerts": 1
+  },
+  "comparison": {
+    "this_month": {
+      "purchases": 29931.35,
+      "emi_instalments": 10200.66,
+      "fees": 600.0,
+      "finance_charges": 0.0,
+      "forex_markup": 67.13,
+      "gst": 138.26,
+      "payments": 52386.03,
+      "refunds": 0.0,
+      "total_amount_due": 40937.4
+    },
+    "last_month": {
+      "purchases": 42070.34,
+      "emi_instalments": 10200.66,
+      "fees": 0.0,
+      "finance_charges": 0.0,
+      "forex_markup": 66.82,
+      "gst": 48.21,
+      "payments": 44818.7,
+      "refunds": 0.0,
+      "total_amount_due": 52386.03
+    },
+    "change": {
+      "purchases": -12138.99,
+      "emi_instalments": 0.0,
+      "fees": 600.0,
+      "finance_charges": 0.0,
+      "forex_markup": 0.31,
+      "gst": 90.05,
+      "payments": 7567.33,
+      "refunds": 0.0,
+      "total_amount_due": -11448.63
+    },
+    "change_drivers": {
+      "total_change": -11448.63,
+      "pushed_the_bill_up": [
+        {
+          "item": "fees",
+          "this_month": 600.0,
+          "last_month": 0.0,
+          "change": 600.0
+        },
+        {
+          "item": "GST",
+          "this_month": 138.26,
+          "last_month": 48.21,
+          "change": 90.05
+        }
+      ],
+      "pulled_the_bill_down": [
+        {
+          "item": "card purchases",
+          "this_month": 29931.35,
+          "last_month": 42070.34,
+          "change": -12138.99
+        }
+      ]
+    },
+    "change_explained": "Total due went down by Rs. 11,448.63 versus last month, mainly because of card purchases down Rs. 12,138.99; partly offset by fees up Rs. 600.00, GST up Rs. 90.05.",
+    "largest_purchases": [
+      {
+        "txn_id": "2026-07#14",
+        "date": "2026-07-06",
+        "merchant": "TRENT LIMITED GURGAON",
+        "amount": 4729.0
+      },
+      {
+        "txn_id": "2026-07#08",
+        "date": "2026-06-24",
+        "merchant": "TRENT LIMITED GURGAON",
+        "amount": 3685.0
+      },
+      {
+        "txn_id": "2026-07#19",
+        "date": "2026-07-13",
+        "merchant": "AMAZON PAY INDIA PRIVA Bangalore",
+        "amount": 3251.0
+      },
+      {
+        "txn_id": "2026-07#18",
+        "date": "2026-07-11",
+        "merchant": "DIVERSE RETAILS BENGALURU",
+        "amount": 3084.05
+      },
+      {
+        "txn_id": "2026-07#13",
+        "date": "2026-07-05",
+        "merchant": "CUREFIT HEALTHCARE BENGALURU",
+        "amount": 1999.0
+      }
+    ]
+  },
+  "alerts": [
+    {
+      "rule_id": "F08",
+      "status": "alert",
+      "title": "Over-limit fee charged although the balance stayed within the credit limit",
+      "expected": 0.0,
+      "actual": 600.0,
+      "unit": "INR",
+      "calculation": "opening balance incl. EMI outstanding 62485.7; highest balance in the cycle 79020.0; credit limit 100000.0",
+      "evidence": [
+        {
+          "txn_id": "2026-07#02",
+          "date": "2026-07-10",
+          "description": "OVER LIMIT FEE (EXCL TAX 108.00)",
+          "amount": 600.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [
+        "C11"
+      ],
+      "allowed_by": null,
+      "difference": 600.0,
+      "severity": "high",
+      "id": "2026-07-04-F08",
+      "ai": {
+        "source": "ai",
+        "verdict": "agree",
+        "rule_check": "Rule F08 flags when an over-limit fee is charged while within the limit; here the calculation shows highest balance 79020.0 and credit limit 100000.0, so the balance stayed within the limit, yet a fee of 600.0 was charged.",
+        "explanation": "An over-limit fee was charged even though your balance did not exceed your credit limit. This fee should not have been applied. Please raise this with your card issuer for review.",
+        "guardrail": {
+          "sent": true,
+          "passed": true
+        }
+      }
+    }
+  ],
+  "checks_passed": [
+    {
+      "rule_id": "C10",
+      "status": "ok",
+      "title": "Total amount due adds up",
+      "expected": 40937.4,
+      "actual": 40937.4,
+      "unit": "INR",
+      "calculation": "52386.03 - 52386.03 - 0.0 + 40031.01 + 906.39 = 40937.4",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-01-C10"
+    },
+    {
+      "rule_id": "F15",
+      "status": "ok",
+      "title": "Payment due date is correct",
+      "expected": "2026-08-11",
+      "actual": "2026-08-11",
+      "unit": "date",
+      "calculation": "statement date 2026-07-22 + 20 days",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "id": "2026-07-02-F15"
+    },
+    {
+      "rule_id": "F13",
+      "status": "ok",
+      "title": "GST on fees and interest is 18%",
+      "expected": 138.26,
+      "actual": 138.26,
+      "unit": "INR",
+      "calculation": "18% x 768.13 (fees + interest + charges)",
+      "evidence": [
+        {
+          "txn_id": "2026-07#02",
+          "date": "2026-07-10",
+          "description": "OVER LIMIT FEE (EXCL TAX 108.00)",
+          "amount": 600.0,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-07#05",
+          "date": "2026-07-22",
+          "description": "INTEREST ON EMI",
+          "amount": 101.0,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-07#06",
+          "date": null,
+          "description": "FORGN CURR MARKUP DB (EXCL TAX 12.08)",
+          "amount": 67.13,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-07#07",
+          "date": null,
+          "description": "IGST DB @ 18.00%",
+          "amount": 138.26,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-03-F13"
+    },
+    {
+      "rule_id": "F10",
+      "status": "ok",
+      "title": "Foreign currency markup is 3.5%",
+      "expected": 67.13,
+      "actual": 67.13,
+      "unit": "INR",
+      "calculation": "3.5% x 1918.0 (20.0 USD)",
+      "evidence": [
+        {
+          "txn_id": "2026-07#15",
+          "date": "2026-07-09",
+          "description": "OPENAI *CHATGPT SUBSCR SAN FRANCISCO US 20.00 USD",
+          "amount": 1918.0,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-07#06",
+          "date": null,
+          "description": "FORGN CURR MARKUP DB (EXCL TAX 12.08)",
+          "amount": 67.13,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-05-F10"
+    },
+    {
+      "rule_id": "C04",
+      "status": "ok",
+      "title": "EMI-A: EMI 3/3 matches the plan",
+      "expected": 10200.66,
+      "actual": 10200.66,
+      "unit": "INR",
+      "calculation": "principal 10099.66 + interest 101.0 (opening 10099.67 x 12%/12)",
+      "evidence": [
+        {
+          "txn_id": "2026-07#04",
+          "date": "2026-07-22",
+          "description": "FP EMI 03/03(EXCL TAX 18.18)",
+          "amount": 10099.66,
+          "type": "M"
+        },
+        {
+          "txn_id": "2026-07#05",
+          "date": "2026-07-22",
+          "description": "INTEREST ON EMI",
+          "amount": 101.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-06-C04"
+    },
+    {
+      "rule_id": "C07",
+      "status": "ok",
+      "title": "Recurring charge unchanged: CUREFIT HEALTHCARE BENGALURU",
+      "expected": 1999.0,
+      "actual": 1999.0,
+      "unit": "INR",
+      "calculation": null,
+      "evidence": [
+        {
+          "txn_id": "2026-05#10",
+          "date": "2026-05-05",
+          "description": "CUREFIT HEALTHCARE BENGALURU IN",
+          "amount": 1999.0,
+          "type": "D",
+          "statement_month": "2026-05"
+        },
+        {
+          "txn_id": "2026-06#11",
+          "date": "2026-06-05",
+          "description": "CUREFIT HEALTHCARE BENGALURU IN",
+          "amount": 1999.0,
+          "type": "D",
+          "statement_month": "2026-06"
+        },
+        {
+          "txn_id": "2026-07#13",
+          "date": "2026-07-05",
+          "description": "CUREFIT HEALTHCARE BENGALURU IN",
+          "amount": 1999.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-07-C07"
+    },
+    {
+      "rule_id": "C07",
+      "status": "ok",
+      "title": "Recurring charge unchanged: OPENAI *CHATGPT SUBSCR SAN FRANCISCO",
+      "expected": 1909.0,
+      "actual": 1918.0,
+      "unit": "INR",
+      "calculation": null,
+      "evidence": [
+        {
+          "txn_id": "2026-05#12",
+          "date": "2026-05-09",
+          "description": "OPENAI *CHATGPT SUBSCR SAN FRANCISCO US 20.00 USD",
+          "amount": 1904.0,
+          "type": "D",
+          "statement_month": "2026-05"
+        },
+        {
+          "txn_id": "2026-06#13",
+          "date": "2026-06-09",
+          "description": "OPENAI *CHATGPT SUBSCR SAN FRANCISCO US 20.00 USD",
+          "amount": 1909.0,
+          "type": "D",
+          "statement_month": "2026-06"
+        },
+        {
+          "txn_id": "2026-07#15",
+          "date": "2026-07-09",
+          "description": "OPENAI *CHATGPT SUBSCR SAN FRANCISCO US 20.00 USD",
+          "amount": 1918.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 9.0,
+      "id": "2026-07-08-C07"
+    },
+    {
+      "rule_id": "C07",
+      "status": "ok",
+      "title": "Recurring charge unchanged: SPOTIFY INDIA MUMBAI",
+      "expected": 119.0,
+      "actual": 119.0,
+      "unit": "INR",
+      "calculation": null,
+      "evidence": [
+        {
+          "txn_id": "2026-05#18",
+          "date": "2026-05-17",
+          "description": "SPOTIFY INDIA MUMBAI IN",
+          "amount": 119.0,
+          "type": "D",
+          "statement_month": "2026-05"
+        },
+        {
+          "txn_id": "2026-06#18",
+          "date": "2026-06-17",
+          "description": "SPOTIFY INDIA MUMBAI IN",
+          "amount": 119.0,
+          "type": "D",
+          "statement_month": "2026-06"
+        },
+        {
+          "txn_id": "2026-07#22",
+          "date": "2026-07-17",
+          "description": "SPOTIFY INDIA MUMBAI IN",
+          "amount": 119.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-09-C07"
+    },
+    {
+      "rule_id": "F14",
+      "status": "ok",
+      "title": "Minimum amount due is correct",
+      "expected": 11604.68,
+      "actual": 11604.68,
+      "unit": "INR",
+      "calculation": "GST+EMI+fees+interest 11006.05 + over-limit 0.0 + max(2% of remaining, 200) + overdue minimum 0.0, capped at total due",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-11-F14"
+    }
+  ],
+  "notes": [
+    {
+      "rule_id": "C12",
+      "status": "info",
+      "title": "First-time merchant: DLF MALL OF INDIA FOOD NOIDA",
+      "expected": null,
+      "actual": 1136.0,
+      "unit": "INR",
+      "calculation": "never seen in 2 earlier statements; largest earlier purchase 18450.0; threshold 1.5 x",
+      "evidence": [
+        {
+          "txn_id": "2026-07#09",
+          "date": "2026-06-25",
+          "description": "DLF MALL OF INDIA FOOD NOIDA IN",
+          "amount": 1136.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "id": "2026-07-10-C12"
+    }
+  ],
+  "coverage": {
+    "C01": {
+      "status": "evaluated"
+    },
+    "C02": {
+      "status": "evaluated"
+    },
+    "C03": {
+      "status": "evaluated"
+    },
+    "C04": {
+      "status": "evaluated"
+    },
+    "C05": {
+      "status": "evaluated"
+    },
+    "C06": {
+      "status": "evaluated"
+    },
+    "C07": {
+      "status": "evaluated"
+    },
+    "C08": {
+      "status": "evaluated"
+    },
+    "C09": {
+      "status": "evaluated"
+    },
+    "C10": {
+      "status": "evaluated"
+    },
+    "C11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "C12": {
+      "status": "evaluated"
+    },
+    "F01": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F02": {
+      "status": "evaluated"
+    },
+    "F03": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F04": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F05": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F06": {
+      "status": "evaluated"
+    },
+    "F07": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F08": {
+      "status": "evaluated"
+    },
+    "F09": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F10": {
+      "status": "evaluated"
+    },
+    "F11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F12": {
+      "status": "evaluated"
+    },
+    "F13": {
+      "status": "evaluated"
+    },
+    "F14": {
+      "status": "evaluated"
+    },
+    "F15": {
+      "status": "evaluated"
+    },
+    "F16": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F17": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F18": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F19": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F20": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F21": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F22": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F23": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F24": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F25": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    }
+  },
+  "llm": {
+    "provider": "openai_compatible",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "ai_summary": {
+    "summary": "An over‑limit fee of Rs. 600.00 was charged despite your balance staying within the credit limit.",
+    "actions": [
+      "Contact customer service to dispute the incorrect over‑limit fee."
+    ],
+    "source": "ai",
+    "guardrail": {
+      "sent": true,
+      "passed": true
+    }
+  }
+}

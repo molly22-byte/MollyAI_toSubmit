@@ -1,0 +1,391 @@
+{
+  "schema_version": 1,
+  "card_id": "CARD_1",
+  "card_network": "VISA",
+  "month": "2026-07",
+  "issuer": "MERIDIAN BANK",
+  "source_sha256": "bf21b247055ba9d80bfb397762511ddb3ba845f30e7a05421b36b2e826c5a9c6",
+  "cardholder": {
+    "name": "NAME_1",
+    "address": [
+      "ADDR_1",
+      "ADDR_2",
+      "ADDR_3"
+    ],
+    "mobile": "PHONE_1",
+    "email": "EMAIL_1",
+    "card_number": "CARD_1",
+    "customer_id": "CUSTID_1",
+    "pan": "PAN_1"
+  },
+  "statement": {
+    "statement_no": "STMTNO_3",
+    "statement_date": "2026-07-22",
+    "period_from": "2026-06-23",
+    "period_to": "2026-07-22",
+    "payment_due_date": "2026-08-11",
+    "total_amount_due": 40937.4,
+    "minimum_amount_due": 11604.68,
+    "credit_limit": 100000.0,
+    "available_credit": 59062.59,
+    "available_cash_limit": 20000.0
+  },
+  "account_summary": {
+    "previous_balance": 52386.03,
+    "payments": 52386.03,
+    "credits_refunds_emi_transfers": 0.0,
+    "purchases_emi_instalments": 40031.01,
+    "fees_interest_gst": 906.39,
+    "total_amount_due": 40937.4
+  },
+  "rewards": {
+    "previous_balance": 4503,
+    "earned": 598,
+    "redeemed_expired_forfeited": 0,
+    "closing_balance": 5101,
+    "points_expiry": "NONE"
+  },
+  "emi_plans": [
+    {
+      "plan_ref": "EMI-A",
+      "merchant": "UNICORN INFOSOLUTIONS",
+      "booked_on": "2026-05-12",
+      "amount": 30000.0,
+      "rate_pa_percent": 12,
+      "tenure_months": 3,
+      "emi": 10200.66,
+      "processing_fee": 0.0,
+      "instalment_no": 3,
+      "instalments_total": 3,
+      "outstanding": 0.01
+    }
+  ],
+  "card_terms": {
+    "annual_fee": 500.0,
+    "annual_fee_waiver_spend": 150000.0
+  },
+  "messages": [
+    "Payments made after the due date plus 3 grace days attract a late payment fee as per the fee schedule overleaf.",
+    "Disputes on any transaction must be reported within 90 days of the transaction date (30 days for RuPay domestic / UPI transactions).",
+    "Foreign-currency transactions are converted to INR at the network rate; a 3.5% markup plus 18% GST applies."
+  ],
+  "transactions": [
+    {
+      "date": "2026-07-08",
+      "description": "PAYMENT RECEIVED 000BD0162600BAMAAAM78KME",
+      "amount": 31431.62,
+      "type": "C",
+      "category": "payment",
+      "section": "summary",
+      "id": "2026-07#01",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-10",
+      "description": "OVER LIMIT FEE (EXCL TAX 108.00)",
+      "amount": 600.0,
+      "type": "D",
+      "category": "fee",
+      "section": "summary",
+      "tax": 108.0,
+      "id": "2026-07#02",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-11",
+      "description": "PAYMENT RECEIVED 000BD0162170BAMAAAM2KP94",
+      "amount": 20954.41,
+      "type": "C",
+      "category": "payment",
+      "section": "summary",
+      "id": "2026-07#03",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-22",
+      "description": "FP EMI 03/03(EXCL TAX 18.18)",
+      "amount": 10099.66,
+      "type": "M",
+      "category": "emi_principal",
+      "section": "summary",
+      "tax": 18.18,
+      "id": "2026-07#04",
+      "merchant_key": null,
+      "pay_in_emi": false,
+      "emi_no": 3,
+      "emi_of": 3
+    },
+    {
+      "date": "2026-07-22",
+      "description": "INTEREST ON EMI",
+      "amount": 101.0,
+      "type": "D",
+      "category": "emi_interest",
+      "section": "summary",
+      "id": "2026-07#05",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": null,
+      "description": "FORGN CURR MARKUP DB (EXCL TAX 12.08)",
+      "amount": 67.13,
+      "type": "D",
+      "category": "forex_markup",
+      "section": "summary",
+      "tax": 12.08,
+      "id": "2026-07#06",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": null,
+      "description": "IGST DB @ 18.00%",
+      "amount": 138.26,
+      "type": "D",
+      "category": "gst",
+      "section": "summary",
+      "id": "2026-07#07",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-06-24",
+      "description": "TRENT LIMITED GURGAON IN (Pay in EMIs)",
+      "amount": 3685.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#08",
+      "merchant_key": "TRENT LIMITED GURGAON",
+      "pay_in_emi": true
+    },
+    {
+      "date": "2026-06-25",
+      "description": "DLF MALL OF INDIA FOOD NOIDA IN",
+      "amount": 1136.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#09",
+      "merchant_key": "DLF MALL OF INDIA FOOD NOIDA",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-06-30",
+      "description": "WWW MYSTERYGEAR IN NEW DELHI IN",
+      "amount": 1398.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#10",
+      "merchant_key": "WWW MYSTERYGEAR IN NEW DELHI",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-02",
+      "description": "ZOMATO LTD GURGAON IN",
+      "amount": 1867.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#11",
+      "merchant_key": "ZOMATO LTD GURGAON",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-04",
+      "description": "BOOKMYSHOW MUMBAI IN",
+      "amount": 1720.3,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#12",
+      "merchant_key": "BOOKMYSHOW MUMBAI",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-05",
+      "description": "CUREFIT HEALTHCARE BENGALURU IN",
+      "amount": 1999.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#13",
+      "merchant_key": "CUREFIT HEALTHCARE BENGALURU",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-06",
+      "description": "TRENT LIMITED GURGAON IN (Pay in EMIs)",
+      "amount": 4729.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#14",
+      "merchant_key": "TRENT LIMITED GURGAON",
+      "pay_in_emi": true
+    },
+    {
+      "date": "2026-07-09",
+      "description": "OPENAI *CHATGPT SUBSCR SAN FRANCISCO US 20.00 USD",
+      "amount": 1918.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "foreign_amount": 20.0,
+      "foreign_currency": "USD",
+      "id": "2026-07#15",
+      "merchant_key": "OPENAI *CHATGPT SUBSCR SAN FRANCISCO",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-10",
+      "description": "SWIGGY LIMITED Bangalore IN",
+      "amount": 849.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#16",
+      "merchant_key": "SWIGGY LIMITED Bangalore",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-10",
+      "description": "UBER INDIA SYSTEMS PVT Bangalore IN",
+      "amount": 637.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#17",
+      "merchant_key": "UBER INDIA SYSTEMS PVT Bangalore",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-11",
+      "description": "DIVERSE RETAILS BENGALURU IN (Pay in EMIs)",
+      "amount": 3084.05,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#18",
+      "merchant_key": "DIVERSE RETAILS BENGALURU",
+      "pay_in_emi": true
+    },
+    {
+      "date": "2026-07-13",
+      "description": "AMAZON PAY INDIA PRIVA Bangalore IN (Pay in EMIs)",
+      "amount": 3251.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#19",
+      "merchant_key": "AMAZON PAY INDIA PRIVA Bangalore",
+      "pay_in_emi": true
+    },
+    {
+      "date": "2026-07-14",
+      "description": "UBER INDIA SYSTEMS PVT Bangalore IN",
+      "amount": 402.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#20",
+      "merchant_key": "UBER INDIA SYSTEMS PVT Bangalore",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-16",
+      "description": "SWIGGY LIMITED Bangalore IN",
+      "amount": 1232.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#21",
+      "merchant_key": "SWIGGY LIMITED Bangalore",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-17",
+      "description": "SPOTIFY INDIA MUMBAI IN",
+      "amount": 119.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#22",
+      "merchant_key": "SPOTIFY INDIA MUMBAI",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-18",
+      "description": "WWW MYSTERYGEAR IN NEW DELHI IN",
+      "amount": 959.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#23",
+      "merchant_key": "WWW MYSTERYGEAR IN NEW DELHI",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-19",
+      "description": "DLF MALL OF INDIA FOOD NOIDA IN",
+      "amount": 946.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-07#24",
+      "merchant_key": "DLF MALL OF INDIA FOOD NOIDA",
+      "pay_in_emi": false
+    }
+  ],
+  "fee_schedule": {
+    "Finance charge (interest)": "3.75% per month (45% per annum) on unpaid balances",
+    "Minimum finance charge": "₹ 25 when a finance charge applies",
+    "Annual fee": "₹ 500 + GST; waived on annual spends of ₹ 1,50,000 or more",
+    "Foreign currency markup": "3.5% of the INR-converted amount",
+    "Over-limit fee": "Higher of 2.5% of the amount over the limit or ₹ 600; once per cycle",
+    "Cash advance fee": "Higher of 2.5% or ₹ 500 per withdrawal",
+    "EMI processing fee": "0% for 3-month plans, 1% of the booking amount for longer plans; billed once",
+    "Payment due date": "Statement date + 20 days",
+    "Minimum amount due": "100% of GST, EMI, fees and finance charges + 2% of remaining balance (min Rs 200) + any overdue minimum due"
+  },
+  "late_fee_slabs": [
+    {
+      "amount_due": "Up to 100",
+      "fee": 0.0
+    },
+    {
+      "amount_due": "101 - 500",
+      "fee": 100.0
+    },
+    {
+      "amount_due": "501 - 1,000",
+      "fee": 500.0
+    },
+    {
+      "amount_due": "1,001 - 10,000",
+      "fee": 750.0
+    },
+    {
+      "amount_due": "10,001 - 25,000",
+      "fee": 950.0
+    },
+    {
+      "amount_due": "25,001 - 50,000",
+      "fee": 1100.0
+    },
+    {
+      "amount_due": "Above 50,000",
+      "fee": 1300.0
+    }
+  ],
+  "how_to_pay": [
+    "Pay online (net banking / UPI), by NEFT using your card number as beneficiary account, or at any branch.",
+    "Reward points do not expire. Points can be redeemed against statement credit or vouchers (redemption fee Rs 99 + GST).",
+    "For any query call the 24x7 helpline or write to the Nodal Officer. This is a computer-generated statement and needs no signature."
+  ]
+}

@@ -1,0 +1,474 @@
+{
+  "built_from": "reconciliation_rulebook.xlsx",
+  "built_at": "2026-10-17T00:07:51",
+  "assumptions": [
+    "The dummy card is a standard unsecured card: finance charge 3.75% per month and foreign currency fee 3.5%. Premium, secured and defence variants have different rates in the MITC and are left out.",
+    "GST is 18% on every fee, interest and charge. The split into central and state tax depends on the cardholder state; the total is the same.",
+    "Annual fee, credit limit, and each EMI plan (amount, rate, tenure, processing fee) are not fixed by the MITC. Set them per dummy card and write them on the statement.",
+    "Allow a rounding tolerance of Rs. 1 when comparing expected and actual amounts."
+  ],
+  "parameters": {
+    "finance_charge_monthly": 0.0375,
+    "finance_charge_annual": 0.45,
+    "min_finance_charge": 25,
+    "cash_advance_fee_rate": 0.025,
+    "cash_advance_fee_min": 500,
+    "late_fee_grace_days": 3,
+    "additional_late_charge": 100,
+    "overlimit_fee_rate": 0.025,
+    "overlimit_fee_min": 600,
+    "dishonour_fee_rate": 0.02,
+    "dishonour_fee_min": 500,
+    "forex_fee_rate": 0.035,
+    "dcc_fee_rate": 0.035,
+    "dcc_min_transaction": 1000,
+    "gst_rate": 0.18,
+    "mad_remaining_balance_rate": 0.02,
+    "mad_floor": 200,
+    "due_date_days": 20,
+    "utility_fee_rate": 0.01,
+    "utility_fee_threshold": 50000,
+    "education_fee_rate": 0.01,
+    "wallet_fee_rate": 0.01,
+    "wallet_fee_threshold": 1000,
+    "rent_processing_fee": 199,
+    "fuel_surcharge_rate": 0.01,
+    "cash_payment_fee": 250,
+    "cheque_payment_fee": 200,
+    "rewards_redemption_fee": 99,
+    "card_replacement_fee_min": 100,
+    "card_replacement_fee_max": 250,
+    "dispute_window_days": 90,
+    "dispute_window_days_rupay_domestic": 30,
+    "rounding_tolerance": 1
+  },
+  "late_fee_slabs": [
+    {
+      "above": 0,
+      "up_to": 100,
+      "fee": 0
+    },
+    {
+      "above": 100,
+      "up_to": 500,
+      "fee": 100
+    },
+    {
+      "above": 500,
+      "up_to": 1000,
+      "fee": 500
+    },
+    {
+      "above": 1000,
+      "up_to": 10000,
+      "fee": 750
+    },
+    {
+      "above": 10000,
+      "up_to": 25000,
+      "fee": 950
+    },
+    {
+      "above": 25000,
+      "up_to": 50000,
+      "fee": 1100
+    },
+    {
+      "above": 50000,
+      "up_to": null,
+      "fee": 1300
+    }
+  ],
+  "emi_plans": {
+    "EMI-A": {
+      "booking_amount": 30000,
+      "annual_rate": 0.12,
+      "tenure_months": 3,
+      "processing_fee_rate": 0
+    },
+    "EMI-B": {
+      "booking_amount": 36295,
+      "annual_rate": 0.18,
+      "tenure_months": 9,
+      "processing_fee_rate": 0.01
+    },
+    "EMI-C": {
+      "booking_amount": 60000,
+      "annual_rate": 0.15,
+      "tenure_months": 12,
+      "processing_fee_rate": 0.01
+    }
+  },
+  "rules": {
+    "F01": {
+      "group": "bank_fee",
+      "rule": "Finance charge (interest) rate",
+      "when_it_applies": "Total amount due of the previous statement was not paid in full by the due date",
+      "expected": "Balance x 45% x days / 365 (3.75% per month), counted from the transaction date",
+      "flag_if": "Interest charged differs from the formula",
+      "worked_example": "Rs. 6,000 for 38 days: 45% x 38/365 x 6,000 = Rs. 281.10 (MITC example)",
+      "mitc_section": "1F"
+    },
+    "F02": {
+      "group": "bank_fee",
+      "rule": "No interest after full payment",
+      "when_it_applies": "Previous total amount due was paid in full by the due date, no balance carried forward, no cash advance",
+      "expected": "Finance charge = 0",
+      "flag_if": "Any finance charge appears",
+      "worked_example": null,
+      "mitc_section": "1E, 1F"
+    },
+    "F03": {
+      "group": "bank_fee",
+      "rule": "Minimum finance charge",
+      "when_it_applies": "A finance charge applies but the computed amount is small",
+      "expected": "Finance charge is at least Rs. 25 (before tax)",
+      "flag_if": "Finance charge is above 0 and below Rs. 25",
+      "worked_example": null,
+      "mitc_section": "1F, 8"
+    },
+    "F04": {
+      "group": "bank_fee",
+      "rule": "Interest on cash advance",
+      "when_it_applies": "Cash withdrawn using the card",
+      "expected": "Interest from the withdrawal date until paid; no interest-free period",
+      "flag_if": "Interest is counted from a date other than the withdrawal date",
+      "worked_example": null,
+      "mitc_section": "1B, 1F, 8"
+    },
+    "F05": {
+      "group": "bank_fee",
+      "rule": "Cash advance fee",
+      "when_it_applies": "Each cash withdrawal at an ATM",
+      "expected": "Higher of 2.5% of the amount or Rs. 500",
+      "flag_if": "Fee differs from the formula, or is charged twice for one withdrawal",
+      "worked_example": "Rs. 10,000: 2.5% = 250, so fee = Rs. 500. Rs. 30,000: fee = Rs. 750",
+      "mitc_section": "1B, 8"
+    },
+    "F06": {
+      "group": "bank_fee",
+      "rule": "Late payment fee",
+      "when_it_applies": "Minimum amount due not paid by the due date plus 3 grace days",
+      "expected": "Fixed slab by outstanding amount due (see Late fee slabs sheet)",
+      "flag_if": "Fee charged although the minimum due was paid on time, or the wrong slab is used",
+      "worked_example": "Amount due Rs. 10,500 falls in the 10,000 to 25,000 slab: fee = Rs. 950 (MITC example)",
+      "mitc_section": "1H, 8"
+    },
+    "F07": {
+      "group": "bank_fee",
+      "rule": "Additional late payment charge",
+      "when_it_applies": "Minimum amount due missed for two consecutive cycles",
+      "expected": "Rs. 100 extra per cycle until the minimum due is cleared",
+      "flag_if": "Charged when fewer than two consecutive cycles were missed, or the amount is not Rs. 100",
+      "worked_example": null,
+      "mitc_section": "1H, 8"
+    },
+    "F08": {
+      "group": "bank_fee",
+      "rule": "Over-limit fee",
+      "when_it_applies": "Outstanding amount exceeds the credit limit",
+      "expected": "Higher of 2.5% of the amount over the limit or Rs. 600; once per billing cycle",
+      "flag_if": "Charged while within the limit, wrong amount, or more than once in a cycle",
+      "worked_example": "Limit Rs. 1,00,000, outstanding Rs. 1,30,000: 2.5% x 30,000 = Rs. 750",
+      "mitc_section": "1I, 8"
+    },
+    "F09": {
+      "group": "bank_fee",
+      "rule": "Payment dishonour fee",
+      "when_it_applies": "A payment bounces",
+      "expected": "Higher of 2% of the payment amount or Rs. 500",
+      "flag_if": "Fee differs, or is charged with no bounced payment on the statement",
+      "worked_example": "Payment Rs. 20,000: 2% = 400, so fee = Rs. 500",
+      "mitc_section": "1J, 8"
+    },
+    "F10": {
+      "group": "bank_fee",
+      "rule": "Foreign currency transaction fee",
+      "when_it_applies": "Transaction in a foreign currency",
+      "expected": "3.5% of the INR-converted amount",
+      "flag_if": "Fee differs from 3.5% of the converted amount",
+      "worked_example": "Rs. 10,000 converted: fee = Rs. 350",
+      "mitc_section": "1N, 8"
+    },
+    "F11": {
+      "group": "bank_fee",
+      "rule": "Dynamic currency conversion fee",
+      "when_it_applies": "INR transaction of Rs. 1,000 or more at an international location or overseas-registered merchant",
+      "expected": "3.5% of the transaction amount",
+      "flag_if": "Charged on a transaction below Rs. 1,000, on a domestic merchant, or at a different rate",
+      "worked_example": null,
+      "mitc_section": "1N, 8"
+    },
+    "F12": {
+      "group": "bank_fee",
+      "rule": "Annual or renewal fee",
+      "when_it_applies": "Once every 12 months",
+      "expected": "The fee set for the dummy card (MITC range Rs. 0 to Rs. 9,999); waived if annual spend crossed the card's waiver threshold",
+      "flag_if": "Charged more than once in 12 months, amount differs from the card's fee, or charged although the waiver threshold was met",
+      "worked_example": null,
+      "mitc_section": "1A, 8"
+    },
+    "F13": {
+      "group": "bank_fee",
+      "rule": "GST on fees and interest",
+      "when_it_applies": "Any fee, interest or charge on the statement",
+      "expected": "18% of the sum of fees, interest and charges",
+      "flag_if": "GST differs from 18% of that sum, or GST is charged on purchases",
+      "worked_example": "Annual fee Rs. 500: GST = Rs. 90 (MITC example)",
+      "mitc_section": "8"
+    },
+    "F14": {
+      "group": "bank_fee",
+      "rule": "Minimum amount due",
+      "when_it_applies": "Every statement",
+      "expected": "100% of GST + 100% of EMI + 100% of fees + 100% of finance charges + over-limit amount + 2% of remaining balance (at least Rs. 200), plus any unpaid minimum due from earlier statements",
+      "flag_if": "Printed minimum due differs from the formula",
+      "worked_example": "GST 90 + fee 500 + 2% x 6,000 = Rs. 710 (MITC example)",
+      "mitc_section": "1G, 3b"
+    },
+    "F15": {
+      "group": "bank_fee",
+      "rule": "Payment due date",
+      "when_it_applies": "Every statement",
+      "expected": "Statement date + 20 days (as used in the MITC examples)",
+      "flag_if": "Due date is earlier than statement date + 20 days",
+      "worked_example": "Statement 2 Feb: due 22 Feb (MITC example)",
+      "mitc_section": "1F examples"
+    },
+    "F16": {
+      "group": "bank_fee",
+      "rule": "Utility payment fee",
+      "when_it_applies": "Utility payments in a billing cycle total more than Rs. 50,000",
+      "expected": "1% of the total utility payments in that cycle",
+      "flag_if": "Charged when the total is Rs. 50,000 or less, or the amount is wrong",
+      "worked_example": "Utility total Rs. 64,000: fee = Rs. 640 (MITC example)",
+      "mitc_section": "1K, 8"
+    },
+    "F17": {
+      "group": "bank_fee",
+      "rule": "Education payment fee",
+      "when_it_applies": "Education payment made through a third-party app",
+      "expected": "1% of the transaction amount",
+      "flag_if": "Fee differs from 1%, or is charged on a payment made directly to the school or college",
+      "worked_example": null,
+      "mitc_section": "1L, 8"
+    },
+    "F18": {
+      "group": "bank_fee",
+      "rule": "Wallet load fee",
+      "when_it_applies": "Each wallet load above Rs. 1,000",
+      "expected": "1% of the transaction amount",
+      "flag_if": "Charged on a load of Rs. 1,000 or less, or the amount is wrong",
+      "worked_example": "Wallet load Rs. 5,000: fee = Rs. 50",
+      "mitc_section": "1M, 8"
+    },
+    "F19": {
+      "group": "bank_fee",
+      "rule": "Rent payment processing fee",
+      "when_it_applies": "Each rent payment transaction",
+      "expected": "Rs. 199 per transaction",
+      "flag_if": "Amount differs, or charged twice for one rent payment",
+      "worked_example": null,
+      "mitc_section": "1N, 8"
+    },
+    "F20": {
+      "group": "bank_fee",
+      "rule": "Fuel surcharge",
+      "when_it_applies": "Purchase at a petrol pump",
+      "expected": "1% of the transaction amount, plus tax",
+      "flag_if": "Surcharge is more than 1%",
+      "worked_example": null,
+      "mitc_section": "8"
+    },
+    "F21": {
+      "group": "bank_fee",
+      "rule": "Cash payment fee",
+      "when_it_applies": "Bill paid in cash at a bank branch",
+      "expected": "Rs. 250",
+      "flag_if": "Amount differs, or charged when no cash payment was made",
+      "worked_example": null,
+      "mitc_section": "1C, 8"
+    },
+    "F22": {
+      "group": "bank_fee",
+      "rule": "Cheque payment fee",
+      "when_it_applies": "Bill paid by cheque",
+      "expected": "Rs. 200",
+      "flag_if": "Amount differs, or charged when no cheque payment was made",
+      "worked_example": null,
+      "mitc_section": "1N, 8"
+    },
+    "F23": {
+      "group": "bank_fee",
+      "rule": "Rewards redemption fee",
+      "when_it_applies": "Reward points redeemed for physical products, statement credit or physical vouchers",
+      "expected": "Rs. 99",
+      "flag_if": "Amount differs, or charged with no redemption",
+      "worked_example": null,
+      "mitc_section": "1N, 8"
+    },
+    "F24": {
+      "group": "bank_fee",
+      "rule": "Card replacement fee",
+      "when_it_applies": "Card replaced",
+      "expected": "Rs. 100 to Rs. 250",
+      "flag_if": "Amount is outside the range, or charged with no replacement",
+      "worked_example": null,
+      "mitc_section": "1N, 8"
+    },
+    "F25": {
+      "group": "bank_fee",
+      "rule": "Interest on unpaid EMI",
+      "when_it_applies": "An EMI instalment is billed and not paid by the due date",
+      "expected": "Unpaid instalment x 45% x days / 365",
+      "flag_if": "Interest on unpaid EMI differs from the formula, or is charged although the EMI was paid",
+      "worked_example": "Rs. 6,730.03 unpaid for 11 days: Rs. 91.27 (MITC example)",
+      "mitc_section": "1F example 5"
+    },
+    "C01": {
+      "group": "common_sense",
+      "rule": "Duplicate transaction",
+      "when_it_applies": "Same merchant, amount and date appear twice",
+      "expected": "Same merchant, amount and date appear twice",
+      "flag_if": "A second identical transaction is charged",
+      "worked_example": null,
+      "mitc_section": null
+    },
+    "C02": {
+      "group": "common_sense",
+      "rule": "EMI missing",
+      "when_it_applies": "An ongoing EMI should appear every month until its last instalment",
+      "expected": "An ongoing EMI should appear every month until its last instalment",
+      "flag_if": "An ongoing EMI is not on this month's statement",
+      "worked_example": null,
+      "mitc_section": null
+    },
+    "C03": {
+      "group": "common_sense",
+      "rule": "EMI repeated",
+      "when_it_applies": "Each EMI should appear once per month",
+      "expected": "Each EMI should appear once per month",
+      "flag_if": "The same EMI is charged twice in one month",
+      "worked_example": null,
+      "mitc_section": null
+    },
+    "C04": {
+      "group": "common_sense",
+      "rule": "EMI amount changed",
+      "when_it_applies": "EMI amount should match the plan and earlier months",
+      "expected": "EMI amount should match the plan and earlier months",
+      "flag_if": "The amount differs from the plan amount",
+      "worked_example": null,
+      "mitc_section": null
+    },
+    "C05": {
+      "group": "common_sense",
+      "rule": "EMI instalment count",
+      "when_it_applies": "Instalment number should go up by one each month and stop at the tenure",
+      "expected": "Instalment number should go up by one each month and stop at the tenure",
+      "flag_if": "A number is skipped or repeated, or an EMI is charged after the last instalment",
+      "worked_example": null,
+      "mitc_section": null
+    },
+    "C06": {
+      "group": "common_sense",
+      "rule": "EMI amount matches the plan",
+      "when_it_applies": "EMI = P x r x (1+r)^n / ((1+r)^n - 1), where P is the amount, r the monthly rate, n the tenure",
+      "expected": "EMI = P x r x (1+r)^n / ((1+r)^n - 1), where P is the amount, r the monthly rate, n the tenure",
+      "flag_if": "EMI on the statement differs from the formula for the stated plan",
+      "worked_example": null,
+      "mitc_section": null
+    },
+    "C07": {
+      "group": "common_sense",
+      "rule": "Subscription price increase",
+      "when_it_applies": "A recurring merchant should charge the same as last month",
+      "expected": "A recurring merchant should charge the same as last month",
+      "flag_if": "This month's charge is higher than last month's",
+      "worked_example": null,
+      "mitc_section": null
+    },
+    "C08": {
+      "group": "common_sense",
+      "rule": "New recurring charge",
+      "when_it_applies": "A merchant that starts charging every month",
+      "expected": "A merchant that starts charging every month",
+      "flag_if": "A new subscription appears that was not in earlier months",
+      "worked_example": null,
+      "mitc_section": null
+    },
+    "C09": {
+      "group": "common_sense",
+      "rule": "Missing refund",
+      "when_it_applies": "A refund or reversal that the earlier statements lead us to expect",
+      "expected": "A refund or reversal that the earlier statements lead us to expect",
+      "flag_if": "The refund is not on the statement",
+      "worked_example": null,
+      "mitc_section": null
+    },
+    "C10": {
+      "group": "common_sense",
+      "rule": "Totals do not add up",
+      "when_it_applies": "Opening balance + purchases + fees + interest + GST - payments - refunds",
+      "expected": "Opening balance + purchases + fees + interest + GST - payments - refunds",
+      "flag_if": "The result does not equal the closing balance",
+      "worked_example": null,
+      "mitc_section": null
+    },
+    "C11": {
+      "group": "common_sense",
+      "rule": "Fee with no trigger",
+      "when_it_applies": "Every fee should have a matching event on the statement",
+      "expected": "Every fee should have a matching event on the statement",
+      "flag_if": "A fee appears with nothing that triggers it",
+      "worked_example": null,
+      "mitc_section": null
+    },
+    "C12": {
+      "group": "common_sense",
+      "rule": "Unknown or new merchant",
+      "when_it_applies": "Merchants seen in earlier months",
+      "expected": "Merchants seen in earlier months",
+      "flag_if": "A large charge from a merchant never seen before",
+      "worked_example": null,
+      "mitc_section": null
+    }
+  },
+  "not_errors": {
+    "N01": {
+      "looks_wrong": "Payment made up to 3 days after the due date, with no late fee",
+      "why_allowed": "A 3-day grace period applies when nothing is overdue from earlier cycles",
+      "mitc_section": "8"
+    },
+    "N02": {
+      "looks_wrong": "A purchase is refunded but the foreign currency fee is not",
+      "why_allowed": "Foreign currency and currency conversion fees are not reversed on refunds",
+      "mitc_section": "1N"
+    },
+    "N03": {
+      "looks_wrong": "A transaction is reversed but the over-limit fee stays",
+      "why_allowed": "The over-limit fee is not reversed on reversal, cancellation or refund",
+      "mitc_section": "1I"
+    },
+    "N04": {
+      "looks_wrong": "A rent payment is refunded but the Rs. 199 fee stays",
+      "why_allowed": "The rent processing fee is not reversed",
+      "mitc_section": "1N"
+    },
+    "N05": {
+      "looks_wrong": "No payment made, yet no late fee",
+      "why_allowed": "A refund credited before the due date for an earlier-cycle purchase counts as payment if it covers the minimum due",
+      "mitc_section": "1H example 3, 3j"
+    },
+    "N06": {
+      "looks_wrong": "Interest charged in a month where the full bill was paid",
+      "why_allowed": "If an earlier balance was carried forward, interest runs on it until the payment date",
+      "mitc_section": "1F example 4"
+    },
+    "N07": {
+      "looks_wrong": "Interest charged on new purchases straight away",
+      "why_allowed": "The interest-free period is suspended while any earlier balance is outstanding",
+      "mitc_section": "1E"
+    }
+  }
+}

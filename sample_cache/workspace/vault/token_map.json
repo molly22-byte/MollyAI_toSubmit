@@ -1,0 +1,170 @@
+{
+  "NAME_1": {
+    "value": "KABIR A MALHOTRA",
+    "type": "NAME"
+  },
+  "ADDR_1": {
+    "value": "B-14, GREATER KAILASH II",
+    "type": "ADDR"
+  },
+  "ADDR_2": {
+    "value": "NEW DELHI - 110048",
+    "type": "ADDR"
+  },
+  "ADDR_3": {
+    "value": "DELHI, INDIA",
+    "type": "ADDR"
+  },
+  "PHONE_1": {
+    "value": "98110 77235",
+    "type": "PHONE"
+  },
+  "EMAIL_1": {
+    "value": "kabir.malhotra@example.com",
+    "type": "EMAIL"
+  },
+  "CARD_1": {
+    "value": "4294 55XX XXXX 2093",
+    "type": "CARD"
+  },
+  "CUSTID_1": {
+    "value": "3347 9921",
+    "type": "CUSTID"
+  },
+  "PAN_1": {
+    "value": "XXXXX2058R",
+    "type": "PAN"
+  },
+  "STMTNO_1": {
+    "value": "260520935510",
+    "type": "STMTNO"
+  },
+  "STMTNO_2": {
+    "value": "260620933993",
+    "type": "STMTNO"
+  },
+  "STMTNO_3": {
+    "value": "260720936475",
+    "type": "STMTNO"
+  },
+  "STMTNO_4": {
+    "value": "260820937181",
+    "type": "STMTNO"
+  },
+  "STMTNO_5": {
+    "value": "260920931363",
+    "type": "STMTNO"
+  },
+  "NAME_2": {
+    "value": "ROHAN V DESHPANDE",
+    "type": "NAME"
+  },
+  "ADDR_4": {
+    "value": "FLAT 402, SAI HEIGHTS, BANER ROAD",
+    "type": "ADDR"
+  },
+  "ADDR_5": {
+    "value": "BANER, PUNE - 411045",
+    "type": "ADDR"
+  },
+  "ADDR_6": {
+    "value": "MAHARASHTRA, INDIA",
+    "type": "ADDR"
+  },
+  "PHONE_2": {
+    "value": "98230 14567",
+    "type": "PHONE"
+  },
+  "EMAIL_2": {
+    "value": "rohan.deshpande@example.com",
+    "type": "EMAIL"
+  },
+  "CARD_2": {
+    "value": "4294 55XX XXXX 4821",
+    "type": "CARD"
+  },
+  "CUSTID_2": {
+    "value": "7028 4193",
+    "type": "CUSTID"
+  },
+  "PAN_2": {
+    "value": "XXXXX4182K",
+    "type": "PAN"
+  },
+  "STMTNO_6": {
+    "value": "260548217628",
+    "type": "STMTNO"
+  },
+  "STMTNO_7": {
+    "value": "260648213929",
+    "type": "STMTNO"
+  },
+  "STMTNO_8": {
+    "value": "260748219771",
+    "type": "STMTNO"
+  },
+  "STMTNO_9": {
+    "value": "260848218188",
+    "type": "STMTNO"
+  },
+  "STMTNO_10": {
+    "value": "260948214551",
+    "type": "STMTNO"
+  },
+  "NAME_3": {
+    "value": "MEERA S IYER",
+    "type": "NAME"
+  },
+  "ADDR_7": {
+    "value": "7/12, SECOND CROSS STREET, ADYAR",
+    "type": "ADDR"
+  },
+  "ADDR_8": {
+    "value": "CHENNAI - 600020",
+    "type": "ADDR"
+  },
+  "ADDR_9": {
+    "value": "TAMIL NADU, INDIA",
+    "type": "ADDR"
+  },
+  "PHONE_3": {
+    "value": "90030 28841",
+    "type": "PHONE"
+  },
+  "EMAIL_3": {
+    "value": "meera.iyer@example.com",
+    "type": "EMAIL"
+  },
+  "CARD_3": {
+    "value": "4294 55XX XXXX 7305",
+    "type": "CARD"
+  },
+  "CUSTID_3": {
+    "value": "5519 3076",
+    "type": "CUSTID"
+  },
+  "PAN_3": {
+    "value": "XXXXX7731M",
+    "type": "PAN"
+  },
+  "STMTNO_11": {
+    "value": "260573054615",
+    "type": "STMTNO"
+  },
+  "STMTNO_12": {
+    "value": "260673055952",
+    "type": "STMTNO"
+  },
+  "STMTNO_13": {
+    "value": "260773054990",
+    "type": "STMTNO"
+  },
+  "STMTNO_14": {
+    "value": "260873059984",
+    "type": "STMTNO"
+  },
+  "STMTNO_15": {
+    "value": "260973051631",
+    "type": "STMTNO"
+  }
+}

@@ -1,0 +1,344 @@
+{
+  "card_id": "CARD_2",
+  "month": "2026-05",
+  "statement_date": "2026-05-22",
+  "generated_at": "2026-10-26T19:54:01",
+  "history_months": [],
+  "had_previous_statement": false,
+  "headline": {
+    "total_due": 27161.23,
+    "previous_total_due": null,
+    "change": null,
+    "minimum_due": 5313.39,
+    "due_date": "2026-06-11",
+    "alerts": 0
+  },
+  "comparison": {
+    "this_month": {
+      "purchases": 22293.71,
+      "emi_instalments": 4341.24,
+      "fees": 362.95,
+      "finance_charges": 0.0,
+      "forex_markup": 0.0,
+      "gst": 163.33,
+      "payments": 18472.6,
+      "refunds": 0.0,
+      "total_amount_due": 27161.23
+    },
+    "change_explained": null,
+    "largest_purchases": [
+      {
+        "txn_id": "2026-05#14",
+        "date": "2026-05-11",
+        "merchant": "CROMA INFINITI RETAIL PUNE",
+        "amount": 36295.0
+      },
+      {
+        "txn_id": "2026-05#11",
+        "date": "2026-04-29",
+        "merchant": "Avenue Supermarts Ltd PUNE",
+        "amount": 5001.46
+      },
+      {
+        "txn_id": "2026-05#16",
+        "date": "2026-05-13",
+        "merchant": "Avenue Supermarts Ltd PUNE",
+        "amount": 3270.3
+      },
+      {
+        "txn_id": "2026-05#10",
+        "date": "2026-04-26",
+        "merchant": "Avenue Supermarts Ltd PUNE",
+        "amount": 3092.27
+      },
+      {
+        "txn_id": "2026-05#13",
+        "date": "2026-05-05",
+        "merchant": "AMAZON PAY INDIA PRIVA Bangalore",
+        "amount": 2539.0
+      }
+    ]
+  },
+  "alerts": [],
+  "checks_passed": [
+    {
+      "rule_id": "C10",
+      "status": "ok",
+      "title": "Total amount due adds up",
+      "expected": 27161.23,
+      "actual": 27161.23,
+      "unit": "INR",
+      "calculation": "18472.6 - 18472.6 - 36295.0 + 62385.52 + 1070.71 = 27161.23",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-05-01-C10"
+    },
+    {
+      "rule_id": "F15",
+      "status": "ok",
+      "title": "Payment due date is correct",
+      "expected": "2026-06-11",
+      "actual": "2026-06-11",
+      "unit": "date",
+      "calculation": "statement date 2026-05-22 + 20 days",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "id": "2026-05-02-F15"
+    },
+    {
+      "rule_id": "F13",
+      "status": "ok",
+      "title": "GST on fees and interest is 18%",
+      "expected": 163.33,
+      "actual": 163.33,
+      "unit": "INR",
+      "calculation": "18% x 907.38 (fees + interest + charges)",
+      "evidence": [
+        {
+          "txn_id": "2026-05#02",
+          "date": "2026-05-13",
+          "description": "MERCHANT EMI PROC FEE (EXCL TAX 65.33)",
+          "amount": 362.95,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-05#04",
+          "date": "2026-05-22",
+          "description": "INTEREST ON EMI",
+          "amount": 544.43,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-05#05",
+          "date": null,
+          "description": "IGST DB @ 18.00%",
+          "amount": 163.33,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-05-03-F13"
+    },
+    {
+      "rule_id": "C06",
+      "status": "ok",
+      "title": "EMI processing fee matches the plan terms",
+      "expected": 362.95,
+      "actual": 362.95,
+      "unit": "INR",
+      "calculation": "0% for 3-month plans, 1% of the booking amount for longer plans",
+      "evidence": [
+        {
+          "txn_id": "2026-05#02",
+          "date": "2026-05-13",
+          "description": "MERCHANT EMI PROC FEE (EXCL TAX 65.33)",
+          "amount": 362.95,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-05-04-C06"
+    },
+    {
+      "rule_id": "C04",
+      "status": "ok",
+      "title": "EMI-B: EMI 1/9 matches the plan",
+      "expected": 4341.24,
+      "actual": 4341.24,
+      "unit": "INR",
+      "calculation": "principal 3796.81 + interest 544.43 (opening 36295.0 x 18%/12)",
+      "evidence": [
+        {
+          "txn_id": "2026-05#03",
+          "date": "2026-05-22",
+          "description": "FP EMI 01/09(EXCL TAX 98.00)",
+          "amount": 3796.81,
+          "type": "M"
+        },
+        {
+          "txn_id": "2026-05#04",
+          "date": "2026-05-22",
+          "description": "INTEREST ON EMI",
+          "amount": 544.43,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-05-05-C04"
+    },
+    {
+      "rule_id": "F14",
+      "status": "ok",
+      "title": "Minimum amount due is correct",
+      "expected": 5313.39,
+      "actual": 5313.39,
+      "unit": "INR",
+      "calculation": "GST+EMI+fees+interest 4867.52 + over-limit 0.0 + max(2% of remaining, 200) + overdue minimum 0.0, capped at total due",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-05-06-F14"
+    }
+  ],
+  "notes": [],
+  "coverage": {
+    "C01": {
+      "status": "evaluated"
+    },
+    "C02": {
+      "status": "evaluated"
+    },
+    "C03": {
+      "status": "evaluated"
+    },
+    "C04": {
+      "status": "evaluated"
+    },
+    "C05": {
+      "status": "evaluated"
+    },
+    "C06": {
+      "status": "evaluated"
+    },
+    "C07": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "C08": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "C09": {
+      "status": "evaluated"
+    },
+    "C10": {
+      "status": "evaluated"
+    },
+    "C11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "C12": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F01": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F02": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F03": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F04": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F05": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F06": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F07": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F08": {
+      "status": "evaluated"
+    },
+    "F09": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F10": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F12": {
+      "status": "evaluated"
+    },
+    "F13": {
+      "status": "evaluated"
+    },
+    "F14": {
+      "status": "evaluated"
+    },
+    "F15": {
+      "status": "evaluated"
+    },
+    "F16": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F17": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F18": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F19": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F20": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F21": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F22": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F23": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F24": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F25": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    }
+  },
+  "llm": {
+    "provider": "openai_compatible",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "ai_summary": {
+    "summary": "No alerts require your attention.",
+    "actions": [],
+    "source": "ai",
+    "guardrail": {
+      "sent": true,
+      "passed": true
+    }
+  }
+}

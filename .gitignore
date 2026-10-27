@@ -1,0 +1,20 @@
+# secrets - never commit
+.env
+.streamlit/secrets.toml
+
+# local data and generated output
+data/
+eval_out/
+eval_out_llm/
+judge_rules/
+mollyai_sessions/
+sample_cache_*/
+error_lab_*/
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+venv/
+.venv/

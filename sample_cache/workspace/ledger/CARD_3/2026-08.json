@@ -1,0 +1,372 @@
+{
+  "schema_version": 1,
+  "card_id": "CARD_3",
+  "card_network": "VISA",
+  "month": "2026-08",
+  "issuer": "MERIDIAN BANK",
+  "source_sha256": "c74d2b181cd4f8016e6c5b732d1082dc6f303dca84b45b4ef65b4fca473bcb0c",
+  "cardholder": {
+    "name": "NAME_3",
+    "address": [
+      "ADDR_7",
+      "ADDR_8",
+      "ADDR_9"
+    ],
+    "mobile": "PHONE_3",
+    "email": "EMAIL_3",
+    "card_number": "CARD_3",
+    "customer_id": "CUSTID_3",
+    "pan": "PAN_3"
+  },
+  "statement": {
+    "statement_no": "STMTNO_14",
+    "statement_date": "2026-08-22",
+    "period_from": "2026-07-23",
+    "period_to": "2026-08-22",
+    "payment_due_date": "2026-09-11",
+    "total_amount_due": 33835.57,
+    "minimum_amount_due": 7524.23,
+    "credit_limit": 150000.0,
+    "available_credit": 75179.27,
+    "available_cash_limit": 30000.0
+  },
+  "account_summary": {
+    "previous_balance": 47731.39,
+    "payments": 47731.39,
+    "credits_refunds_emi_transfers": 0.0,
+    "purchases_emi_instalments": 31690.96,
+    "fees_interest_gst": 2144.61,
+    "total_amount_due": 33835.57
+  },
+  "rewards": {
+    "previous_balance": 2320,
+    "earned": 536,
+    "redeemed_expired_forfeited": 0,
+    "closing_balance": 2856,
+    "points_expiry": "NONE"
+  },
+  "emi_plans": [
+    {
+      "plan_ref": "EMI-C",
+      "merchant": "RELIANCE DIGITAL RETAIL",
+      "booked_on": "2026-05-10",
+      "amount": 60000.0,
+      "rate_pa_percent": 15,
+      "tenure_months": 12,
+      "emi": 5415.5,
+      "processing_fee": 600.0,
+      "instalment_no": 4,
+      "instalments_total": 12,
+      "outstanding": 40985.16
+    }
+  ],
+  "card_terms": {
+    "annual_fee": 500.0,
+    "annual_fee_waiver_spend": 150000.0
+  },
+  "messages": [
+    "Payments made after the due date plus 3 grace days attract a late payment fee as per the fee schedule overleaf.",
+    "Disputes on any transaction must be reported within 90 days of the transaction date (30 days for RuPay domestic / UPI transactions).",
+    "Foreign-currency transactions are converted to INR at the network rate; a 3.5% markup plus 18% GST applies."
+  ],
+  "transactions": [
+    {
+      "date": "2026-08-09",
+      "description": "PAYMENT RECEIVED 000BD0162370BAMAAAMMEQ56",
+      "amount": 47731.39,
+      "type": "C",
+      "category": "payment",
+      "section": "summary",
+      "id": "2026-08#01",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-22",
+      "description": "FP EMI 04/12(EXCL TAX 103.11)",
+      "amount": 4842.65,
+      "type": "M",
+      "category": "emi_principal",
+      "section": "summary",
+      "tax": 103.11,
+      "id": "2026-08#02",
+      "merchant_key": null,
+      "pay_in_emi": false,
+      "emi_no": 4,
+      "emi_of": 12
+    },
+    {
+      "date": "2026-08-22",
+      "description": "INTEREST ON EMI",
+      "amount": 572.85,
+      "type": "D",
+      "category": "emi_interest",
+      "section": "summary",
+      "id": "2026-08#03",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-22",
+      "description": "FINANCE CHARGES (EXCL TAX 190.66)",
+      "amount": 1059.24,
+      "type": "D",
+      "category": "finance_charge",
+      "section": "summary",
+      "tax": 190.66,
+      "id": "2026-08#04",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": null,
+      "description": "FORGN CURR MARKUP DB (EXCL TAX 27.30)",
+      "amount": 151.67,
+      "type": "D",
+      "category": "forex_markup",
+      "section": "summary",
+      "tax": 27.3,
+      "id": "2026-08#05",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": null,
+      "description": "FORGN CURR MARKUP DB (EXCL TAX 6.07)",
+      "amount": 33.71,
+      "type": "D",
+      "category": "forex_markup",
+      "section": "summary",
+      "tax": 6.07,
+      "id": "2026-08#06",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": null,
+      "description": "IGST DB @ 18.00%",
+      "amount": 327.14,
+      "type": "D",
+      "category": "gst",
+      "section": "summary",
+      "id": "2026-08#07",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-23",
+      "description": "ZOMATO LTD GURGAON IN",
+      "amount": 625.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-08#08",
+      "merchant_key": "ZOMATO LTD GURGAON",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-07-27",
+      "description": "APOLLO PHARMACY CHENNAI IN",
+      "amount": 1010.39,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-08#09",
+      "merchant_key": "APOLLO PHARMACY CHENNAI",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-05",
+      "description": "AIRBNB * HM5Z2 SAN FRANCISCO US 45.00 USD",
+      "amount": 4333.5,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "foreign_amount": 45.0,
+      "foreign_currency": "USD",
+      "id": "2026-08#10",
+      "merchant_key": "AIRBNB * HM5Z2 SAN FRANCISCO",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-06",
+      "description": "CCAV*A1 TRADING CO MUMBAI IN (Pay in EMIs)",
+      "amount": 2699.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-08#11",
+      "merchant_key": "CCAV*A1 TRADING CO MUMBAI",
+      "pay_in_emi": true
+    },
+    {
+      "date": "2026-08-07",
+      "description": "NETFLIX ENTERTAINMENT S MUMBAI IN",
+      "amount": 649.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-08#12",
+      "merchant_key": "NETFLIX ENTERTAINMENT S MUMBAI",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-07",
+      "description": "PHONEPE*CAFE COFFEE DAY CHENNAI IN",
+      "amount": 827.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-08#13",
+      "merchant_key": "PHONEPE*CAFE COFFEE DAY CHENNAI",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-09",
+      "description": "BIGBASKET*INNOVATIVE BENGALURU IN",
+      "amount": 1109.77,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-08#14",
+      "merchant_key": "BIGBASKET*INNOVATIVE BENGALURU",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-09",
+      "description": "CCAV*A1 TRADING CO MUMBAI IN (Pay in EMIs)",
+      "amount": 2607.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-08#15",
+      "merchant_key": "CCAV*A1 TRADING CO MUMBAI",
+      "pay_in_emi": true
+    },
+    {
+      "date": "2026-08-10",
+      "description": "AMZN Mktp IN Bangalore IN (Pay in EMIs)",
+      "amount": 3520.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-08#16",
+      "merchant_key": "AMZN Mktp IN Bangalore",
+      "pay_in_emi": true
+    },
+    {
+      "date": "2026-08-12",
+      "description": "TECHPROCESS PAYMENT MUMBAI IN",
+      "amount": 1918.65,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-08#17",
+      "merchant_key": "TECHPROCESS PAYMENT MUMBAI",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-12",
+      "description": "ZOMATO LTD GURGAON IN",
+      "amount": 323.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-08#18",
+      "merchant_key": "ZOMATO LTD GURGAON",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-12",
+      "description": "ZOMATO LTD GURGAON IN",
+      "amount": 703.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-08#19",
+      "merchant_key": "ZOMATO LTD GURGAON",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-14",
+      "description": "NOTION LABS INC SAN FRANCISCO US 10.00 USD",
+      "amount": 963.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "foreign_amount": 10.0,
+      "foreign_currency": "USD",
+      "id": "2026-08#20",
+      "merchant_key": "NOTION LABS INC SAN FRANCISCO",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-19",
+      "description": "AMZN Mktp IN Bangalore IN (Pay in EMIs)",
+      "amount": 5441.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-08#21",
+      "merchant_key": "AMZN Mktp IN Bangalore",
+      "pay_in_emi": true
+    },
+    {
+      "date": "2026-08-19",
+      "description": "SPOTIFY INDIA MUMBAI IN",
+      "amount": 119.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-08#22",
+      "merchant_key": "SPOTIFY INDIA MUMBAI",
+      "pay_in_emi": false
+    }
+  ],
+  "fee_schedule": {
+    "Finance charge (interest)": "3.75% per month (45% per annum) on unpaid balances",
+    "Minimum finance charge": "₹ 25 when a finance charge applies",
+    "Annual fee": "₹ 500 + GST; waived on annual spends of ₹ 1,50,000 or more",
+    "Foreign currency markup": "3.5% of the INR-converted amount",
+    "Over-limit fee": "Higher of 2.5% of the amount over the limit or ₹ 600; once per cycle",
+    "Cash advance fee": "Higher of 2.5% or ₹ 500 per withdrawal",
+    "EMI processing fee": "0% for 3-month plans, 1% of the booking amount for longer plans; billed once",
+    "Payment due date": "Statement date + 20 days",
+    "Minimum amount due": "100% of GST, EMI, fees and finance charges + 2% of remaining balance (min Rs 200) + any overdue minimum due"
+  },
+  "late_fee_slabs": [
+    {
+      "amount_due": "Up to 100",
+      "fee": 0.0
+    },
+    {
+      "amount_due": "101 - 500",
+      "fee": 100.0
+    },
+    {
+      "amount_due": "501 - 1,000",
+      "fee": 500.0
+    },
+    {
+      "amount_due": "1,001 - 10,000",
+      "fee": 750.0
+    },
+    {
+      "amount_due": "10,001 - 25,000",
+      "fee": 950.0
+    },
+    {
+      "amount_due": "25,001 - 50,000",
+      "fee": 1100.0
+    },
+    {
+      "amount_due": "Above 50,000",
+      "fee": 1300.0
+    }
+  ],
+  "how_to_pay": [
+    "Pay online (net banking / UPI), by NEFT using your card number as beneficiary account, or at any branch.",
+    "Reward points do not expire. Points can be redeemed against statement credit or vouchers (redemption fee Rs 99 + GST).",
+    "For any query call the 24x7 helpline or write to the Nodal Officer. This is a computer-generated statement and needs no signature."
+  ]
+}

@@ -1,0 +1,485 @@
+{
+  "card_id": "CARD_2",
+  "month": "2026-07",
+  "statement_date": "2026-07-22",
+  "generated_at": "2026-10-26T19:54:05",
+  "history_months": [
+    "2026-05",
+    "2026-06"
+  ],
+  "had_previous_statement": true,
+  "headline": {
+    "total_due": 25715.15,
+    "previous_total_due": 22693.13,
+    "change": 3022.02,
+    "minimum_due": 4844.51,
+    "due_date": "2026-08-11",
+    "alerts": 1
+  },
+  "comparison": {
+    "this_month": {
+      "purchases": 21296.57,
+      "emi_instalments": 4341.24,
+      "fees": 0.0,
+      "finance_charges": 0.0,
+      "forex_markup": 0.0,
+      "gst": 77.34,
+      "payments": 22693.13,
+      "refunds": 0.0,
+      "total_amount_due": 25715.15
+    },
+    "last_month": {
+      "purchases": 17676.15,
+      "emi_instalments": 4341.24,
+      "fees": 500.0,
+      "finance_charges": 0.0,
+      "forex_markup": 0.0,
+      "gst": 177.74,
+      "payments": 27161.23,
+      "refunds": 2.0,
+      "total_amount_due": 22693.13
+    },
+    "change": {
+      "purchases": 3620.42,
+      "emi_instalments": 0.0,
+      "fees": -500.0,
+      "finance_charges": 0.0,
+      "forex_markup": 0.0,
+      "gst": -100.4,
+      "payments": -4468.1,
+      "refunds": -2.0,
+      "total_amount_due": 3022.02
+    },
+    "change_drivers": {
+      "total_change": 3022.02,
+      "pushed_the_bill_up": [
+        {
+          "item": "card purchases",
+          "this_month": 21296.57,
+          "last_month": 17676.15,
+          "change": 3620.42
+        },
+        {
+          "item": "unpaid balance carried from the previous bill",
+          "this_month": 0.0,
+          "last_month": -2.0,
+          "change": 2.0
+        }
+      ],
+      "pulled_the_bill_down": [
+        {
+          "item": "fees",
+          "this_month": 0.0,
+          "last_month": 500.0,
+          "change": -500.0
+        },
+        {
+          "item": "GST",
+          "this_month": 77.34,
+          "last_month": 177.74,
+          "change": -100.4
+        }
+      ]
+    },
+    "change_explained": "Total due went up by Rs. 3,022.02 versus last month, mainly because of card purchases up Rs. 3,620.42, unpaid balance carried from the previous bill up Rs. 2.00; partly offset by fees down Rs. 500.00, GST down Rs. 100.40.",
+    "largest_purchases": [
+      {
+        "txn_id": "2026-07#15",
+        "date": "2026-07-09",
+        "merchant": "Avenue Supermarts Ltd PUNE",
+        "amount": 4081.14
+      },
+      {
+        "txn_id": "2026-07#06",
+        "date": "2026-06-24",
+        "merchant": "Avenue Supermarts Ltd PUNE",
+        "amount": 3470.59
+      },
+      {
+        "txn_id": "2026-07#10",
+        "date": "2026-06-30",
+        "merchant": "TRENT LIMITED PUNE",
+        "amount": 1907.0
+      },
+      {
+        "txn_id": "2026-07#08",
+        "date": "2026-06-29",
+        "merchant": "BILLDESK*MPSDWT MUMBAI",
+        "amount": 1865.84
+      },
+      {
+        "txn_id": "2026-07#11",
+        "date": "2026-07-01",
+        "merchant": "AMAZON PAY INDIA PRIVA Bangalore",
+        "amount": 1611.0
+      }
+    ]
+  },
+  "alerts": [
+    {
+      "rule_id": "C01",
+      "status": "alert",
+      "title": "Duplicate transaction: SWIGGY LIMITED Bangalore on 2026-07-04",
+      "expected": 862.0,
+      "actual": 1724.0,
+      "unit": "INR",
+      "calculation": "2 identical lines (same date, merchant and amount)",
+      "evidence": [
+        {
+          "txn_id": "2026-07#13",
+          "date": "2026-07-04",
+          "description": "SWIGGY LIMITED Bangalore IN",
+          "amount": 862.0,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-07#14",
+          "date": "2026-07-04",
+          "description": "SWIGGY LIMITED Bangalore IN",
+          "amount": 862.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 862.0,
+      "severity": "high",
+      "id": "2026-07-05-C01",
+      "ai": {
+        "source": "ai",
+        "verdict": "agree",
+        "rule_check": "Rule C01 flags when a second identical transaction is charged; two identical transactions exist.",
+        "explanation": "Two charges for Swiggy Limited on 2026-07-04 for ₹862 each were detected. This appears to be a duplicate transaction. Please contact your card issuer to dispute the duplicate charge.",
+        "guardrail": {
+          "sent": true,
+          "passed": true
+        }
+      }
+    }
+  ],
+  "checks_passed": [
+    {
+      "rule_id": "C10",
+      "status": "ok",
+      "title": "Total amount due adds up",
+      "expected": 25715.15,
+      "actual": 25715.15,
+      "unit": "INR",
+      "calculation": "22693.13 - 22693.13 - 0.0 + 25208.14 + 507.01 = 25715.15",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-01-C10"
+    },
+    {
+      "rule_id": "F15",
+      "status": "ok",
+      "title": "Payment due date is correct",
+      "expected": "2026-08-11",
+      "actual": "2026-08-11",
+      "unit": "date",
+      "calculation": "statement date 2026-07-22 + 20 days",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "id": "2026-07-02-F15"
+    },
+    {
+      "rule_id": "F13",
+      "status": "ok",
+      "title": "GST on fees and interest is 18%",
+      "expected": 77.34,
+      "actual": 77.34,
+      "unit": "INR",
+      "calculation": "18% x 429.67 (fees + interest + charges)",
+      "evidence": [
+        {
+          "txn_id": "2026-07#03",
+          "date": "2026-07-22",
+          "description": "INTEREST ON EMI",
+          "amount": 429.67,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-07#04",
+          "date": null,
+          "description": "IGST DB @ 18.00%",
+          "amount": 77.34,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-03-F13"
+    },
+    {
+      "rule_id": "C04",
+      "status": "ok",
+      "title": "EMI-B: EMI 3/9 matches the plan",
+      "expected": 4341.24,
+      "actual": 4341.24,
+      "unit": "INR",
+      "calculation": "principal 3911.57 + interest 429.67 (opening 28644.42 x 18%/12)",
+      "evidence": [
+        {
+          "txn_id": "2026-07#02",
+          "date": "2026-07-22",
+          "description": "FP EMI 03/09(EXCL TAX 77.34)",
+          "amount": 3911.57,
+          "type": "M"
+        },
+        {
+          "txn_id": "2026-07#03",
+          "date": "2026-07-22",
+          "description": "INTEREST ON EMI",
+          "amount": 429.67,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-04-C04"
+    },
+    {
+      "rule_id": "C07",
+      "status": "ok",
+      "title": "Recurring charge unchanged: SPRNG DGTL MEDIA PVT MUMBAI",
+      "expected": 799.0,
+      "actual": 799.0,
+      "unit": "INR",
+      "calculation": null,
+      "evidence": [
+        {
+          "txn_id": "2026-05#12",
+          "date": "2026-05-03",
+          "description": "SPRNG DGTL MEDIA PVT MUMBAI IN",
+          "amount": 799.0,
+          "type": "D",
+          "statement_month": "2026-05"
+        },
+        {
+          "txn_id": "2026-06#11",
+          "date": "2026-06-03",
+          "description": "SPRNG DGTL MEDIA PVT MUMBAI IN",
+          "amount": 799.0,
+          "type": "D",
+          "statement_month": "2026-06"
+        },
+        {
+          "txn_id": "2026-07#12",
+          "date": "2026-07-03",
+          "description": "SPRNG DGTL MEDIA PVT MUMBAI IN",
+          "amount": 799.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-06-C07"
+    },
+    {
+      "rule_id": "C07",
+      "status": "ok",
+      "title": "Recurring charge unchanged: GOOGLE *YOUTUBEPREMIUM g.co/helppay#",
+      "expected": 189.0,
+      "actual": 189.0,
+      "unit": "INR",
+      "calculation": null,
+      "evidence": [
+        {
+          "txn_id": "2026-05#15",
+          "date": "2026-05-12",
+          "description": "GOOGLE *YOUTUBEPREMIUM g.co/helppay# IN",
+          "amount": 189.0,
+          "type": "D",
+          "statement_month": "2026-05"
+        },
+        {
+          "txn_id": "2026-06#15",
+          "date": "2026-06-12",
+          "description": "GOOGLE *YOUTUBEPREMIUM g.co/helppay# IN",
+          "amount": 189.0,
+          "type": "D",
+          "statement_month": "2026-06"
+        },
+        {
+          "txn_id": "2026-07#18",
+          "date": "2026-07-12",
+          "description": "GOOGLE *YOUTUBEPREMIUM g.co/helppay# IN",
+          "amount": 189.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-07-C07"
+    },
+    {
+      "rule_id": "F14",
+      "status": "ok",
+      "title": "Minimum amount due is correct",
+      "expected": 4844.51,
+      "actual": 4844.51,
+      "unit": "INR",
+      "calculation": "GST+EMI+fees+interest 4418.58 + over-limit 0.0 + max(2% of remaining, 200) + overdue minimum 0.0, capped at total due",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-08-F14"
+    }
+  ],
+  "notes": [],
+  "coverage": {
+    "C01": {
+      "status": "evaluated"
+    },
+    "C02": {
+      "status": "evaluated"
+    },
+    "C03": {
+      "status": "evaluated"
+    },
+    "C04": {
+      "status": "evaluated"
+    },
+    "C05": {
+      "status": "evaluated"
+    },
+    "C06": {
+      "status": "evaluated"
+    },
+    "C07": {
+      "status": "evaluated"
+    },
+    "C08": {
+      "status": "evaluated"
+    },
+    "C09": {
+      "status": "evaluated"
+    },
+    "C10": {
+      "status": "evaluated"
+    },
+    "C11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "C12": {
+      "status": "evaluated"
+    },
+    "F01": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F02": {
+      "status": "evaluated"
+    },
+    "F03": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F04": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F05": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F06": {
+      "status": "evaluated"
+    },
+    "F07": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F08": {
+      "status": "evaluated"
+    },
+    "F09": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F10": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F12": {
+      "status": "evaluated"
+    },
+    "F13": {
+      "status": "evaluated"
+    },
+    "F14": {
+      "status": "evaluated"
+    },
+    "F15": {
+      "status": "evaluated"
+    },
+    "F16": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F17": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F18": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F19": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F20": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F21": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F22": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F23": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F24": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F25": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    }
+  },
+  "llm": {
+    "provider": "openai_compatible",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "ai_summary": {
+    "summary": "There is one alert: a duplicate transaction from Swiggy Limited on July 4th where you were charged twice the expected amount (Rs. 862.0 extra). Review this charge.",
+    "actions": [
+      "Review the Swiggy transaction on 2026-07-04 for possible duplication"
+    ],
+    "source": "ai",
+    "guardrail": {
+      "sent": true,
+      "passed": true
+    }
+  }
+}

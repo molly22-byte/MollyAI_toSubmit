@@ -1,0 +1,96 @@
+{
+  "rulebook_version": "c078fa89edb6",
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "samples": {
+    "Statement_2093_2026-05.pdf": {
+      "card": "CARD_1",
+      "month": "2026-05",
+      "statement_date": "2026-05-22",
+      "total_due": 44818.7
+    },
+    "Statement_2093_2026-06.pdf": {
+      "card": "CARD_1",
+      "month": "2026-06",
+      "statement_date": "2026-06-22",
+      "total_due": 52386.03
+    },
+    "Statement_2093_2026-07.pdf": {
+      "card": "CARD_1",
+      "month": "2026-07",
+      "statement_date": "2026-07-22",
+      "total_due": 40937.4
+    },
+    "Statement_2093_2026-08.pdf": {
+      "card": "CARD_1",
+      "month": "2026-08",
+      "statement_date": "2026-08-22",
+      "total_due": 40533.29
+    },
+    "Statement_2093_2026-09.pdf": {
+      "card": "CARD_1",
+      "month": "2026-09",
+      "statement_date": "2026-09-22",
+      "total_due": 38712.57
+    },
+    "Statement_4821_2026-05.pdf": {
+      "card": "CARD_2",
+      "month": "2026-05",
+      "statement_date": "2026-05-22",
+      "total_due": 27161.23
+    },
+    "Statement_4821_2026-06.pdf": {
+      "card": "CARD_2",
+      "month": "2026-06",
+      "statement_date": "2026-06-22",
+      "total_due": 22693.13
+    },
+    "Statement_4821_2026-07.pdf": {
+      "card": "CARD_2",
+      "month": "2026-07",
+      "statement_date": "2026-07-22",
+      "total_due": 25715.15
+    },
+    "Statement_4821_2026-08.pdf": {
+      "card": "CARD_2",
+      "month": "2026-08",
+      "statement_date": "2026-08-22",
+      "total_due": 23417.84
+    },
+    "Statement_4821_2026-09.pdf": {
+      "card": "CARD_2",
+      "month": "2026-09",
+      "statement_date": "2026-09-22",
+      "total_due": 18804.48
+    },
+    "Statement_7305_2026-05.pdf": {
+      "card": "CARD_3",
+      "month": "2026-05",
+      "statement_date": "2026-05-22",
+      "total_due": 32035.41
+    },
+    "Statement_7305_2026-06.pdf": {
+      "card": "CARD_3",
+      "month": "2026-06",
+      "statement_date": "2026-06-22",
+      "total_due": 32361.74
+    },
+    "Statement_7305_2026-07.pdf": {
+      "card": "CARD_3",
+      "month": "2026-07",
+      "statement_date": "2026-07-22",
+      "total_due": 47731.39
+    },
+    "Statement_7305_2026-08.pdf": {
+      "card": "CARD_3",
+      "month": "2026-08",
+      "statement_date": "2026-08-22",
+      "total_due": 33835.57
+    },
+    "Statement_7305_2026-09.pdf": {
+      "card": "CARD_3",
+      "month": "2026-09",
+      "statement_date": "2026-09-22",
+      "total_due": 15868.2
+    }
+  }
+}

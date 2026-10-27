@@ -1,0 +1,68 @@
+{
+  "data_dir": "data",
+  "rulebook": "config/rulebook.json",
+
+  "llm": {
+    "provider": "openai_compatible",
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "base_url": "https://api.tokenfactory.nebius.com/v1",
+    "api_key_env": "NEBIUS_API_KEY",
+    "extra_body": {"chat_template_kwargs": {"enable_thinking": false}},
+    "temperature": 0,
+    "max_tokens": 1024,
+    "timeout_seconds": 120
+  },
+  "llm_examples": {
+    "_note": "Copy one of these into \"llm\" to switch model or provider, or pick one for a single run: python audit.py --llm <name> ... No code change needed.",
+    "_nebius_note": "Default: NVIDIA Nemotron 3 Super 120B on Nebius Token Factory ($0.30 in / $0.90 out per 1M tokens, about $0.03 for all 15 statements). Key: export NEBIUS_API_KEY=... (never put it in this file). Only masked payloads are sent, but they leave the machine. Reasoning is switched off (enable_thinking false): the task is to explain calculated facts, not to compute; if Nebius rejects that option or JSON mode, the client drops it and carries on.",
+    "nemotron_nebius_super": {"provider": "openai_compatible", "model": "nvidia/nemotron-3-super-120b-a12b", "base_url": "https://api.tokenfactory.nebius.com/v1", "api_key_env": "NEBIUS_API_KEY", "extra_body": {"chat_template_kwargs": {"enable_thinking": false}}, "temperature": 0, "max_tokens": 1024, "timeout_seconds": 120},
+    "nemotron_nebius_nano": {"provider": "openai_compatible", "model": "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B", "base_url": "https://api.tokenfactory.nebius.com/v1", "api_key_env": "NEBIUS_API_KEY", "extra_body": {"chat_template_kwargs": {"enable_thinking": false}}, "temperature": 0, "max_tokens": 1024, "timeout_seconds": 120}
+  },
+
+  "card_defaults": {
+    "_note": "Used only when the statement does not print these terms itself.",
+    "annual_fee": 500,
+    "annual_fee_waiver_spend": 150000
+  },
+
+  "heuristics": {
+    "_note": "Tunable thresholds for the pattern checks (not in the rulebook).",
+    "new_merchant_large_multiple": 1.5,
+    "recurring_day_window": 5,
+    "refund_working_days_default": 10
+  },
+
+  "fee_lines": [
+    {"pattern": "^LATE PAYMENT FEE",        "rule": "F06", "handler": "late_fee"},
+    {"pattern": "^ADDITIONAL LATE",         "rule": "F07", "handler": "additional_late"},
+    {"pattern": "^OVER ?LIMIT FEE",         "rule": "F08", "handler": "overlimit"},
+    {"pattern": "^ANNUAL FEE|^RENEWAL FEE", "rule": "F12", "handler": "annual_fee"},
+    {"pattern": "^MERCHANT EMI PROC FEE|^EMI PROCESSING FEE", "rule": "C06", "handler": "emi_processing"},
+    {"pattern": "CASH ADVANCE FEE|CASH WITHDRAWAL FEE", "rule": "F05", "handler": "per_trigger", "calc": "cash_advance_fee", "trigger": ["CASH WITHDRAWAL", "ATM WDL", "CASH ADVANCE"]},
+    {"pattern": "DISHONOUR|BOUNCE|RETURN FEE",   "rule": "F09", "handler": "per_trigger", "calc": "dishonour_fee", "trigger": ["PAYMENT RETURNED", "PAYMENT DISHONOURED", "CHEQUE RETURN"]},
+    {"pattern": "DCC FEE|CURRENCY CONVERSION FEE", "rule": "F11", "handler": "per_trigger", "calc": "dcc_fee", "trigger": []},
+    {"pattern": "UTILITY.*FEE",             "rule": "F16", "handler": "cycle_total", "calc": "utility_fee", "trigger": ["ELECTRICITY", "BILLDESK", "WATER BILL", "GAS BILL"]},
+    {"pattern": "EDUCATION.*FEE",           "rule": "F17", "handler": "per_trigger", "calc": "education_fee", "trigger": ["SCHOOL", "COLLEGE", "UNIVERSITY", "EDUCATION"]},
+    {"pattern": "WALLET.*FEE",              "rule": "F18", "handler": "per_trigger", "calc": "wallet_fee", "trigger": ["WALLET"]},
+    {"pattern": "RENT.*FEE",                "rule": "F19", "handler": "per_trigger", "calc": "rent_fee", "trigger": ["RENT"]},
+    {"pattern": "FUEL SURCHARGE",           "rule": "F20", "handler": "per_trigger", "calc": "fuel_surcharge", "trigger": ["PETROL", "FUEL", "HPCL", "IOCL", "BPCL"]},
+    {"pattern": "CASH PAYMENT FEE",         "rule": "F21", "handler": "per_trigger", "calc": "cash_payment_fee", "trigger": ["CASH PAYMENT"]},
+    {"pattern": "CHEQUE PAYMENT FEE",       "rule": "F22", "handler": "per_trigger", "calc": "cheque_payment_fee", "trigger": ["CHEQUE"]},
+    {"pattern": "REDEMPTION FEE",           "rule": "F23", "handler": "per_trigger", "calc": "redemption_fee", "trigger": ["REDEMPTION"]},
+    {"pattern": "REPLACEMENT FEE",          "rule": "F24", "handler": "per_trigger", "calc": "card_replacement_fee", "trigger": ["CARD REPLACEMENT", "REISSUE"]},
+    {"pattern": "INTEREST ON UNPAID EMI",   "rule": "F25", "handler": "per_trigger", "calc": "none", "trigger": []}
+  ],
+
+  "payment_advice": {
+    "_note": "How alerts feed the report's conclusion. overcharge: (charged - expected) is taken off the amount to pay; refund_owed: (expected - credited) is taken off too; any other alert is listed as 'check before paying' and nothing is deducted. C10 counts only when it is the printed total itself that does not add up.",
+    "overcharge": ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12", "F13",
+                   "F16", "F17", "F18", "F19", "F20", "F21", "F22", "F23", "F24", "F25",
+                   "C01", "C03", "C04", "C05", "C06", "C10", "C11"],
+    "refund_owed": ["C09"]
+  },
+
+  "dispute": {
+    "channel": "Raise it with the card issuer: customer-care helpline, the 'Dispute a transaction' option in the issuer's app or net banking, or a written complaint to the Nodal Officer if not resolved in 30 days.",
+    "rupay_domestic_networks": ["RUPAY"]
+  }
+}

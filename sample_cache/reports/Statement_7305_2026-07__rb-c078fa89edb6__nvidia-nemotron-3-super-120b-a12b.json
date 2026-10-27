@@ -1,0 +1,617 @@
+{
+  "card_id": "CARD_3",
+  "month": "2026-07",
+  "statement_date": "2026-07-22",
+  "generated_at": "2026-10-26T19:54:25",
+  "history_months": [
+    "2026-05",
+    "2026-06"
+  ],
+  "had_previous_statement": true,
+  "headline": {
+    "total_due": 47731.39,
+    "previous_total_due": 32361.74,
+    "change": 15369.65,
+    "minimum_due": 8488.69,
+    "due_date": "2026-08-11",
+    "alerts": 1
+  },
+  "comparison": {
+    "this_month": {
+      "purchases": 20681.83,
+      "emi_instalments": 5415.5,
+      "fees": 0.0,
+      "finance_charges": 1795.63,
+      "forex_markup": 33.57,
+      "gst": 443.12,
+      "payments": 13000.0,
+      "refunds": 0.0,
+      "total_amount_due": 47731.39
+    },
+    "last_month": {
+      "purchases": 26782.32,
+      "emi_instalments": 5415.5,
+      "fees": 0.0,
+      "finance_charges": 0.0,
+      "forex_markup": 33.41,
+      "gst": 130.51,
+      "payments": 32035.41,
+      "refunds": 0.0,
+      "total_amount_due": 32361.74
+    },
+    "change": {
+      "purchases": -6100.49,
+      "emi_instalments": 0.0,
+      "fees": 0.0,
+      "finance_charges": 1795.63,
+      "forex_markup": 0.16,
+      "gst": 312.61,
+      "payments": -19035.41,
+      "refunds": 0.0,
+      "total_amount_due": 15369.65
+    },
+    "change_drivers": {
+      "total_change": 15369.65,
+      "pushed_the_bill_up": [
+        {
+          "item": "unpaid balance carried from the previous bill",
+          "this_month": 19361.74,
+          "last_month": 0.0,
+          "change": 19361.74
+        },
+        {
+          "item": "finance charges (interest)",
+          "this_month": 1795.63,
+          "last_month": 0.0,
+          "change": 1795.63
+        },
+        {
+          "item": "GST",
+          "this_month": 443.12,
+          "last_month": 130.51,
+          "change": 312.61
+        }
+      ],
+      "pulled_the_bill_down": [
+        {
+          "item": "card purchases",
+          "this_month": 20681.83,
+          "last_month": 26782.32,
+          "change": -6100.49
+        }
+      ]
+    },
+    "change_explained": "Total due went up by Rs. 15,369.65 versus last month, mainly because of unpaid balance carried from the previous bill up Rs. 19,361.74, finance charges (interest) up Rs. 1,795.63, GST up Rs. 312.61; partly offset by card purchases down Rs. 6,100.49.",
+    "largest_purchases": [
+      {
+        "txn_id": "2026-07#11",
+        "date": "2026-07-07",
+        "merchant": "BIGBASKET*INNOVATIVE BENGALURU",
+        "amount": 3673.83
+      },
+      {
+        "txn_id": "2026-07#08",
+        "date": "2026-06-29",
+        "merchant": "AMZN Mktp IN Bangalore",
+        "amount": 3307.0
+      },
+      {
+        "txn_id": "2026-07#14",
+        "date": "2026-07-08",
+        "merchant": "FLIPKART INTERNET Bangalore",
+        "amount": 3000.0
+      },
+      {
+        "txn_id": "2026-07#07",
+        "date": "2026-06-27",
+        "merchant": "FLIPKART INTERNET Bangalore",
+        "amount": 2974.0
+      },
+      {
+        "txn_id": "2026-07#13",
+        "date": "2026-07-08",
+        "merchant": "CCAV*A1 TRADING CO MUMBAI",
+        "amount": 2150.0
+      }
+    ]
+  },
+  "alerts": [
+    {
+      "rule_id": "F01",
+      "status": "alert",
+      "title": "Finance charge differs from the 45% p.a. formula",
+      "expected": 1496.36,
+      "actual": 1795.63,
+      "unit": "INR",
+      "calculation": {
+        "carried_balance": 19361.74,
+        "cycle_days": 30,
+        "previous_cycle_carried": 0.0,
+        "carried_x_days": 580852.2,
+        "paid_x_days": 286000.0,
+        "new_purchases_x_days": 346863.45,
+        "annual_rate": 0.45,
+        "formula": "annual_rate / 365 x (carried x cycle days + payments x days to payment + new purchases x days, only while carrying)",
+        "implied_annual_rate_percent": 54.0
+      },
+      "evidence": [
+        {
+          "txn_id": "2026-07#04",
+          "date": "2026-07-22",
+          "description": "FINANCE CHARGES (EXCL TAX 323.21)",
+          "amount": 1795.63,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-07#01",
+          "date": "2026-07-14",
+          "description": "PAYMENT RECEIVED 000BD0162280BAMAAAMM5J4D",
+          "amount": 13000.0,
+          "type": "C"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 299.27,
+      "severity": "high",
+      "id": "2026-07-04-F01",
+      "ai": {
+        "source": "ai",
+        "verdict": "agree",
+        "rule_check": "Rule F01 flags when finance charge differs from the 45% p.a. formula; expected 1496.36 INR, actual 1795.63 INR, so condition is met.",
+        "explanation": "The finance charge shown does not match the interest calculation based on your carried balance and the card's 45% annual rate. This may indicate an error in interest computation. Please raise this with your card issuer for review.",
+        "guardrail": {
+          "sent": true,
+          "passed": true
+        }
+      }
+    }
+  ],
+  "checks_passed": [
+    {
+      "rule_id": "C10",
+      "status": "ok",
+      "title": "Total amount due adds up",
+      "expected": 47731.39,
+      "actual": 47731.39,
+      "unit": "INR",
+      "calculation": "32361.74 - 13000.0 - 0.0 + 25464.7 + 2904.95 = 47731.39",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-01-C10"
+    },
+    {
+      "rule_id": "F15",
+      "status": "ok",
+      "title": "Payment due date is correct",
+      "expected": "2026-08-11",
+      "actual": "2026-08-11",
+      "unit": "date",
+      "calculation": "statement date 2026-07-22 + 20 days",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "id": "2026-07-02-F15"
+    },
+    {
+      "rule_id": "F13",
+      "status": "ok",
+      "title": "GST on fees and interest is 18%",
+      "expected": 443.13,
+      "actual": 443.12,
+      "unit": "INR",
+      "calculation": "18% x 2461.83 (fees + interest + charges)",
+      "evidence": [
+        {
+          "txn_id": "2026-07#03",
+          "date": "2026-07-22",
+          "description": "INTEREST ON EMI",
+          "amount": 632.63,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-07#04",
+          "date": "2026-07-22",
+          "description": "FINANCE CHARGES (EXCL TAX 323.21)",
+          "amount": 1795.63,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-07#05",
+          "date": null,
+          "description": "FORGN CURR MARKUP DB (EXCL TAX 6.04)",
+          "amount": 33.57,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-07#06",
+          "date": null,
+          "description": "IGST DB @ 18.00%",
+          "amount": 443.12,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": -0.01,
+      "id": "2026-07-03-F13"
+    },
+    {
+      "rule_id": "F10",
+      "status": "ok",
+      "title": "Foreign currency markup is 3.5%",
+      "expected": 33.57,
+      "actual": 33.57,
+      "unit": "INR",
+      "calculation": "3.5% x 959.0 (10.0 USD)",
+      "evidence": [
+        {
+          "txn_id": "2026-07#17",
+          "date": "2026-07-14",
+          "description": "NOTION LABS INC SAN FRANCISCO US 10.00 USD",
+          "amount": 959.0,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-07#05",
+          "date": null,
+          "description": "FORGN CURR MARKUP DB (EXCL TAX 6.04)",
+          "amount": 33.57,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-07-F10"
+    },
+    {
+      "rule_id": "C04",
+      "status": "ok",
+      "title": "EMI-C: EMI 3/12 matches the plan",
+      "expected": 5415.5,
+      "actual": 5415.5,
+      "unit": "INR",
+      "calculation": "principal 4782.87 + interest 632.63 (opening 50610.68 x 15%/12)",
+      "evidence": [
+        {
+          "txn_id": "2026-07#02",
+          "date": "2026-07-22",
+          "description": "FP EMI 03/12(EXCL TAX 113.87)",
+          "amount": 4782.87,
+          "type": "M"
+        },
+        {
+          "txn_id": "2026-07#03",
+          "date": "2026-07-22",
+          "description": "INTEREST ON EMI",
+          "amount": 632.63,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-08-C04"
+    },
+    {
+      "rule_id": "C07",
+      "status": "ok",
+      "title": "Recurring charge unchanged: NETFLIX ENTERTAINMENT S MUMBAI",
+      "expected": 649.0,
+      "actual": 649.0,
+      "unit": "INR",
+      "calculation": null,
+      "evidence": [
+        {
+          "txn_id": "2026-05#12",
+          "date": "2026-05-07",
+          "description": "NETFLIX ENTERTAINMENT S MUMBAI IN",
+          "amount": 649.0,
+          "type": "D",
+          "statement_month": "2026-05"
+        },
+        {
+          "txn_id": "2026-06#13",
+          "date": "2026-06-07",
+          "description": "NETFLIX ENTERTAINMENT S MUMBAI IN",
+          "amount": 649.0,
+          "type": "D",
+          "statement_month": "2026-06"
+        },
+        {
+          "txn_id": "2026-07#12",
+          "date": "2026-07-07",
+          "description": "NETFLIX ENTERTAINMENT S MUMBAI IN",
+          "amount": 649.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-09-C07"
+    },
+    {
+      "rule_id": "C07",
+      "status": "ok",
+      "title": "Recurring charge unchanged: NOTION LABS INC SAN FRANCISCO",
+      "expected": 954.5,
+      "actual": 959.0,
+      "unit": "INR",
+      "calculation": null,
+      "evidence": [
+        {
+          "txn_id": "2026-05#16",
+          "date": "2026-05-14",
+          "description": "NOTION LABS INC SAN FRANCISCO US 10.00 USD",
+          "amount": 952.0,
+          "type": "D",
+          "statement_month": "2026-05"
+        },
+        {
+          "txn_id": "2026-06#15",
+          "date": "2026-06-14",
+          "description": "NOTION LABS INC SAN FRANCISCO US 10.00 USD",
+          "amount": 954.5,
+          "type": "D",
+          "statement_month": "2026-06"
+        },
+        {
+          "txn_id": "2026-07#17",
+          "date": "2026-07-14",
+          "description": "NOTION LABS INC SAN FRANCISCO US 10.00 USD",
+          "amount": 959.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 4.5,
+      "id": "2026-07-10-C07"
+    },
+    {
+      "rule_id": "C07",
+      "status": "ok",
+      "title": "Recurring charge unchanged: SPOTIFY INDIA MUMBAI",
+      "expected": 119.0,
+      "actual": 119.0,
+      "unit": "INR",
+      "calculation": null,
+      "evidence": [
+        {
+          "txn_id": "2026-05#20",
+          "date": "2026-05-19",
+          "description": "SPOTIFY INDIA MUMBAI IN",
+          "amount": 119.0,
+          "type": "D",
+          "statement_month": "2026-05"
+        },
+        {
+          "txn_id": "2026-06#17",
+          "date": "2026-06-19",
+          "description": "SPOTIFY INDIA MUMBAI IN",
+          "amount": 119.0,
+          "type": "D",
+          "statement_month": "2026-06"
+        },
+        {
+          "txn_id": "2026-07#19",
+          "date": "2026-07-19",
+          "description": "SPOTIFY INDIA MUMBAI IN",
+          "amount": 119.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-11-C07"
+    },
+    {
+      "rule_id": "F14",
+      "status": "ok",
+      "title": "Minimum amount due is correct",
+      "expected": 8488.69,
+      "actual": 8488.69,
+      "unit": "INR",
+      "calculation": "GST+EMI+fees+interest 7687.82 + over-limit 0.0 + max(2% of remaining, 200) + overdue minimum 0.0, capped at total due",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-07-12-F14"
+    }
+  ],
+  "notes": [
+    {
+      "rule_id": "N07",
+      "status": "info",
+      "title": "Interest charged on new purchases straight away",
+      "expected": null,
+      "actual": null,
+      "unit": "INR",
+      "calculation": "The interest-free period is suspended while any earlier balance is outstanding",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": "N07",
+      "id": "2026-07-05-N07"
+    },
+    {
+      "rule_id": "N01",
+      "status": "info",
+      "title": "Payment made up to 3 days after the due date, with no late fee",
+      "expected": null,
+      "actual": null,
+      "unit": "INR",
+      "calculation": "minimum due 6115.07 of the 2026-06 statement; due 2026-07-12, grace until 2026-07-15; slab for amount due 32361.74 = 1100.0",
+      "evidence": [
+        {
+          "txn_id": "2026-07#01",
+          "date": "2026-07-14",
+          "description": "PAYMENT RECEIVED 000BD0162280BAMAAAMM5J4D",
+          "amount": 13000.0,
+          "type": "C"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": "N01",
+      "id": "2026-07-06-N01"
+    }
+  ],
+  "coverage": {
+    "C01": {
+      "status": "evaluated"
+    },
+    "C02": {
+      "status": "evaluated"
+    },
+    "C03": {
+      "status": "evaluated"
+    },
+    "C04": {
+      "status": "evaluated"
+    },
+    "C05": {
+      "status": "evaluated"
+    },
+    "C06": {
+      "status": "evaluated"
+    },
+    "C07": {
+      "status": "evaluated"
+    },
+    "C08": {
+      "status": "evaluated"
+    },
+    "C09": {
+      "status": "evaluated"
+    },
+    "C10": {
+      "status": "evaluated"
+    },
+    "C11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "C12": {
+      "status": "evaluated"
+    },
+    "F01": {
+      "status": "evaluated"
+    },
+    "F02": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F03": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F04": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F05": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F06": {
+      "status": "evaluated"
+    },
+    "F07": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F08": {
+      "status": "evaluated"
+    },
+    "F09": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F10": {
+      "status": "evaluated"
+    },
+    "F11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F12": {
+      "status": "evaluated"
+    },
+    "F13": {
+      "status": "evaluated"
+    },
+    "F14": {
+      "status": "evaluated"
+    },
+    "F15": {
+      "status": "evaluated"
+    },
+    "F16": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F17": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F18": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F19": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F20": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F21": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F22": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F23": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F24": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F25": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "N01": {
+      "status": "evaluated"
+    },
+    "N07": {
+      "status": "evaluated"
+    }
+  },
+  "llm": {
+    "provider": "openai_compatible",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "ai_summary": {
+    "summary": "There is one alert: your finance charge (interest) is higher than expected based on the standard rate.",
+    "actions": [
+      "Review the finance charge calculation for accuracy",
+      "Check if any recent transactions triggered additional interest"
+    ],
+    "source": "ai",
+    "guardrail": {
+      "sent": true,
+      "passed": true
+    }
+  }
+}

@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "card_id": "CARD_1",
+  "card_network": "VISA",
+  "month": "2026-09",
+  "issuer": "MERIDIAN BANK",
+  "source_sha256": "4fb7b713d4e5eccca432c115c090ad9fde3769e3b1d6ad3e45034e63283f9c5b",
+  "cardholder": {
+    "name": "NAME_1",
+    "address": [
+      "ADDR_1",
+      "ADDR_2",
+      "ADDR_3"
+    ],
+    "mobile": "PHONE_1",
+    "email": "EMAIL_1",
+    "card_number": "CARD_1",
+    "customer_id": "CUSTID_1",
+    "pan": "PAN_1"
+  },
+  "statement": {
+    "statement_no": "STMTNO_5",
+    "statement_date": "2026-09-22",
+    "period_from": "2026-08-23",
+    "period_to": "2026-09-22",
+    "payment_due_date": "2026-10-12",
+    "total_amount_due": 38712.57,
+    "minimum_amount_due": 2124.08,
+    "credit_limit": 100000.0,
+    "available_credit": 61287.43,
+    "available_cash_limit": 20000.0
+  },
+  "account_summary": {
+    "previous_balance": 40533.29,
+    "payments": 40533.29,
+    "credits_refunds_emi_transfers": 0.0,
+    "purchases_emi_instalments": 36335.19,
+    "fees_interest_gst": 1377.38,
+    "total_amount_due": 38712.57
+  },
+  "rewards": {
+    "previous_balance": 5705,
+    "earned": 726,
+    "redeemed_expired_forfeited": 0,
+    "closing_balance": 6431,
+    "points_expiry": "NONE"
+  },
+  "emi_plans": [],
+  "card_terms": {
+    "annual_fee": 500.0,
+    "annual_fee_waiver_spend": 150000.0
+  },
+  "messages": [
+    "Payments made after the due date plus 3 grace days attract a late payment fee as per the fee schedule overleaf.",
+    "Disputes on any transaction must be reported within 90 days of the transaction date (30 days for RuPay domestic / UPI transactions).",
+    "Foreign-currency transactions are converted to INR at the network rate; a 3.5% markup plus 18% GST applies."
+  ],
+  "transactions": [
+    {
+      "date": "2026-09-02",
+      "description": "PAYMENT RECEIVED 000BD0162880BAMAAAMQ4E5V",
+      "amount": 40533.29,
+      "type": "C",
+      "category": "payment",
+      "section": "summary",
+      "id": "2026-09#01",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-09-15",
+      "description": "LATE PAYMENT FEE (EXCL TAX 198.00)",
+      "amount": 1100.0,
+      "type": "D",
+      "category": "fee",
+      "section": "summary",
+      "tax": 198.0,
+      "id": "2026-09#02",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": null,
+      "description": "FORGN CURR MARKUP DB (EXCL TAX 12.11)",
+      "amount": 67.27,
+      "type": "D",
+      "category": "forex_markup",
+      "section": "summary",
+      "tax": 12.11,
+      "id": "2026-09#03",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": null,
+      "description": "IGST DB @ 18.00%",
+      "amount": 210.11,
+      "type": "D",
+      "category": "gst",
+      "section": "summary",
+      "id": "2026-09#04",
+      "merchant_key": null,
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-25",
+      "description": "AMAZON PAY INDIA PRIVA Bangalore IN",
+      "amount": 1539.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#05",
+      "merchant_key": "AMAZON PAY INDIA PRIVA Bangalore",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-26",
+      "description": "BOOKMYSHOW MUMBAI IN",
+      "amount": 1310.22,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#06",
+      "merchant_key": "BOOKMYSHOW MUMBAI",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-26",
+      "description": "ZOMATO LTD GURGAON IN",
+      "amount": 404.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#07",
+      "merchant_key": "ZOMATO LTD GURGAON",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-08-30",
+      "description": "RAZ*Rsl Consult Bengaluru IN (Pay in EMIs)",
+      "amount": 3336.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#08",
+      "merchant_key": "RAZ*Rsl Consult Bengaluru",
+      "pay_in_emi": true
+    },
+    {
+      "date": "2026-09-02",
+      "description": "UBER INDIA SYSTEMS PVT Bangalore IN",
+      "amount": 569.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#09",
+      "merchant_key": "UBER INDIA SYSTEMS PVT Bangalore",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-09-03",
+      "description": "DLF MALL OF INDIA FOOD NOIDA IN",
+      "amount": 1179.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#10",
+      "merchant_key": "DLF MALL OF INDIA FOOD NOIDA",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-09-05",
+      "description": "CUREFIT HEALTHCARE BENGALURU IN",
+      "amount": 1999.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#11",
+      "merchant_key": "CUREFIT HEALTHCARE BENGALURU",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-09-09",
+      "description": "OPENAI *CHATGPT SUBSCR SAN FRANCISCO US 20.00 USD",
+      "amount": 1922.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "foreign_amount": 20.0,
+      "foreign_currency": "USD",
+      "id": "2026-09#12",
+      "merchant_key": "OPENAI *CHATGPT SUBSCR SAN FRANCISCO",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-09-11",
+      "description": "TRENT LIMITED GURGAON IN",
+      "amount": 1506.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#13",
+      "merchant_key": "TRENT LIMITED GURGAON",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-09-12",
+      "description": "AMAZON PAY INDIA PRIVA Bangalore IN (Pay in EMIs)",
+      "amount": 4209.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#14",
+      "merchant_key": "AMAZON PAY INDIA PRIVA Bangalore",
+      "pay_in_emi": true
+    },
+    {
+      "date": "2026-09-13",
+      "description": "AMAZON PAY INDIA PRIVA Bangalore IN (Pay in EMIs)",
+      "amount": 4714.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#15",
+      "merchant_key": "AMAZON PAY INDIA PRIVA Bangalore",
+      "pay_in_emi": true
+    },
+    {
+      "date": "2026-09-14",
+      "description": "DLF MALL OF INDIA FOOD NOIDA IN",
+      "amount": 542.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#16",
+      "merchant_key": "DLF MALL OF INDIA FOOD NOIDA",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-09-15",
+      "description": "ZOMATO LTD GURGAON IN",
+      "amount": 2036.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#17",
+      "merchant_key": "ZOMATO LTD GURGAON",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-09-16",
+      "description": "DIVERSE RETAILS BENGALURU IN (Pay in EMIs)",
+      "amount": 4106.8,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#18",
+      "merchant_key": "DIVERSE RETAILS BENGALURU",
+      "pay_in_emi": true
+    },
+    {
+      "date": "2026-09-16",
+      "description": "ZOMATO LTD GURGAON IN",
+      "amount": 1785.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#19",
+      "merchant_key": "ZOMATO LTD GURGAON",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-09-17",
+      "description": "SPOTIFY INDIA MUMBAI IN",
+      "amount": 119.0,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#20",
+      "merchant_key": "SPOTIFY INDIA MUMBAI",
+      "pay_in_emi": false
+    },
+    {
+      "date": "2026-09-20",
+      "description": "DIVERSE RETAILS BENGALURU IN (Pay in EMIs)",
+      "amount": 5059.17,
+      "type": "D",
+      "category": "purchase",
+      "section": "card_transactions",
+      "id": "2026-09#21",
+      "merchant_key": "DIVERSE RETAILS BENGALURU",
+      "pay_in_emi": true
+    }
+  ],
+  "fee_schedule": {
+    "Finance charge (interest)": "3.75% per month (45% per annum) on unpaid balances",
+    "Minimum finance charge": "₹ 25 when a finance charge applies",
+    "Annual fee": "₹ 500 + GST; waived on annual spends of ₹ 1,50,000 or more",
+    "Foreign currency markup": "3.5% of the INR-converted amount",
+    "Over-limit fee": "Higher of 2.5% of the amount over the limit or ₹ 600; once per cycle",
+    "Cash advance fee": "Higher of 2.5% or ₹ 500 per withdrawal",
+    "EMI processing fee": "0% for 3-month plans, 1% of the booking amount for longer plans; billed once",
+    "Payment due date": "Statement date + 20 days",
+    "Minimum amount due": "100% of GST, EMI, fees and finance charges + 2% of remaining balance (min Rs 200) + any overdue minimum due"
+  },
+  "late_fee_slabs": [
+    {
+      "amount_due": "Up to 100",
+      "fee": 0.0
+    },
+    {
+      "amount_due": "101 - 500",
+      "fee": 100.0
+    },
+    {
+      "amount_due": "501 - 1,000",
+      "fee": 500.0
+    },
+    {
+      "amount_due": "1,001 - 10,000",
+      "fee": 750.0
+    },
+    {
+      "amount_due": "10,001 - 25,000",
+      "fee": 950.0
+    },
+    {
+      "amount_due": "25,001 - 50,000",
+      "fee": 1100.0
+    },
+    {
+      "amount_due": "Above 50,000",
+      "fee": 1300.0
+    }
+  ],
+  "how_to_pay": [
+    "Pay online (net banking / UPI), by NEFT using your card number as beneficiary account, or at any branch.",
+    "Reward points do not expire. Points can be redeemed against statement credit or vouchers (redemption fee Rs 99 + GST).",
+    "For any query call the 24x7 helpline or write to the Nodal Officer. This is a computer-generated statement and needs no signature."
+  ]
+}

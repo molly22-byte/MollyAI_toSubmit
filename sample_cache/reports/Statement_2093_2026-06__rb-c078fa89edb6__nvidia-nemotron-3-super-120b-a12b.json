@@ -1,0 +1,467 @@
+{
+  "card_id": "CARD_1",
+  "month": "2026-06",
+  "statement_date": "2026-06-22",
+  "generated_at": "2026-10-26T19:53:41",
+  "history_months": [
+    "2026-05"
+  ],
+  "had_previous_statement": true,
+  "headline": {
+    "total_due": 52386.03,
+    "previous_total_due": 44818.7,
+    "change": 7567.33,
+    "minimum_due": 11157.1,
+    "due_date": "2026-07-12",
+    "alerts": 1
+  },
+  "comparison": {
+    "this_month": {
+      "purchases": 42070.34,
+      "emi_instalments": 10200.66,
+      "fees": 0.0,
+      "finance_charges": 0.0,
+      "forex_markup": 66.82,
+      "gst": 48.21,
+      "payments": 44818.7,
+      "refunds": 0.0,
+      "total_amount_due": 52386.03
+    },
+    "last_month": {
+      "purchases": 34485.4,
+      "emi_instalments": 10200.66,
+      "fees": 0.0,
+      "finance_charges": 0.0,
+      "forex_markup": 66.64,
+      "gst": 66.0,
+      "payments": 34920.15,
+      "refunds": 0.0,
+      "total_amount_due": 44818.7
+    },
+    "change": {
+      "purchases": 7584.94,
+      "emi_instalments": 0.0,
+      "fees": 0.0,
+      "finance_charges": 0.0,
+      "forex_markup": 0.18,
+      "gst": -17.79,
+      "payments": 9898.55,
+      "refunds": 0.0,
+      "total_amount_due": 7567.33
+    },
+    "change_drivers": {
+      "total_change": 7567.33,
+      "pushed_the_bill_up": [
+        {
+          "item": "card purchases",
+          "this_month": 42070.34,
+          "last_month": 34485.4,
+          "change": 7584.94
+        }
+      ],
+      "pulled_the_bill_down": [
+        {
+          "item": "GST",
+          "this_month": 48.21,
+          "last_month": 66.0,
+          "change": -17.79
+        }
+      ]
+    },
+    "change_explained": "Total due went up by Rs. 7,567.33 versus last month, mainly because of card purchases up Rs. 7,584.94; partly offset by GST down Rs. 17.79.",
+    "largest_purchases": [
+      {
+        "txn_id": "2026-06#17",
+        "date": "2026-06-16",
+        "merchant": "PAYU*ZYQ ENTERPRISES MUMBAI",
+        "amount": 18450.0
+      },
+      {
+        "txn_id": "2026-06#16",
+        "date": "2026-06-13",
+        "merchant": "AMAZON PAY INDIA PRIVA Bangalore",
+        "amount": 5846.0
+      },
+      {
+        "txn_id": "2026-06#19",
+        "date": "2026-06-17",
+        "merchant": "WWW MYSTERYGEAR IN NEW DELHI",
+        "amount": 2977.0
+      },
+      {
+        "txn_id": "2026-06#11",
+        "date": "2026-06-05",
+        "merchant": "CUREFIT HEALTHCARE BENGALURU",
+        "amount": 1999.0
+      },
+      {
+        "txn_id": "2026-06#12",
+        "date": "2026-06-08",
+        "merchant": "ZOMATO LTD GURGAON",
+        "amount": 1998.0
+      }
+    ]
+  },
+  "alerts": [
+    {
+      "rule_id": "C12",
+      "status": "alert",
+      "title": "Large charge from a new merchant: PAYU*ZYQ ENTERPRISES MUMBAI",
+      "expected": 11676.0,
+      "actual": 18450.0,
+      "unit": "INR",
+      "calculation": "never seen in 1 earlier statements; largest earlier purchase 7784.0; threshold 1.5 x",
+      "evidence": [
+        {
+          "txn_id": "2026-06#17",
+          "date": "2026-06-16",
+          "description": "PAYU*ZYQ ENTERPRISES MUMBAI IN (Pay in EMIs)",
+          "amount": 18450.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 6774.0,
+      "severity": "medium",
+      "id": "2026-06-08-C12",
+      "ai": {
+        "source": "ai",
+        "verdict": "agree",
+        "rule_check": "Rule C12 flags a large charge from a merchant never seen before; the transaction shows PAYU*ZYQ ENTERPRISES MUMBAI with no prior history.",
+        "explanation": "The charge of ₹18,450 from PAYU*ZYQ ENTERPRISES MUMBAI is unusually high compared to your past spending and the merchant is new on your statement. This matches the rule for unknown merchants with large charges. Please contact your card issuer to review this transaction.",
+        "guardrail": {
+          "sent": true,
+          "passed": true
+        }
+      }
+    }
+  ],
+  "checks_passed": [
+    {
+      "rule_id": "C10",
+      "status": "ok",
+      "title": "Total amount due adds up",
+      "expected": 52386.03,
+      "actual": 52386.03,
+      "unit": "INR",
+      "calculation": "44818.7 - 44818.7 - 0.0 + 52070.01 + 316.02 = 52386.03",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-06-01-C10"
+    },
+    {
+      "rule_id": "F15",
+      "status": "ok",
+      "title": "Payment due date is correct",
+      "expected": "2026-07-12",
+      "actual": "2026-07-12",
+      "unit": "date",
+      "calculation": "statement date 2026-06-22 + 20 days",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "id": "2026-06-02-F15"
+    },
+    {
+      "rule_id": "F13",
+      "status": "ok",
+      "title": "GST on fees and interest is 18%",
+      "expected": 48.21,
+      "actual": 48.21,
+      "unit": "INR",
+      "calculation": "18% x 267.81 (fees + interest + charges)",
+      "evidence": [
+        {
+          "txn_id": "2026-06#03",
+          "date": "2026-06-22",
+          "description": "INTEREST ON EMI",
+          "amount": 200.99,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-06#04",
+          "date": null,
+          "description": "FORGN CURR MARKUP DB (EXCL TAX 12.03)",
+          "amount": 66.82,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-06#05",
+          "date": null,
+          "description": "IGST DB @ 18.00%",
+          "amount": 48.21,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-06-03-F13"
+    },
+    {
+      "rule_id": "F10",
+      "status": "ok",
+      "title": "Foreign currency markup is 3.5%",
+      "expected": 66.82,
+      "actual": 66.82,
+      "unit": "INR",
+      "calculation": "3.5% x 1909.0 (20.0 USD)",
+      "evidence": [
+        {
+          "txn_id": "2026-06#13",
+          "date": "2026-06-09",
+          "description": "OPENAI *CHATGPT SUBSCR SAN FRANCISCO US 20.00 USD",
+          "amount": 1909.0,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-06#04",
+          "date": null,
+          "description": "FORGN CURR MARKUP DB (EXCL TAX 12.03)",
+          "amount": 66.82,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-06-04-F10"
+    },
+    {
+      "rule_id": "C04",
+      "status": "ok",
+      "title": "EMI-A: EMI 2/3 matches the plan",
+      "expected": 10200.66,
+      "actual": 10200.66,
+      "unit": "INR",
+      "calculation": "principal 9999.67 + interest 200.99 (opening 20099.34 x 12%/12)",
+      "evidence": [
+        {
+          "txn_id": "2026-06#02",
+          "date": "2026-06-22",
+          "description": "FP EMI 02/03(EXCL TAX 36.18)",
+          "amount": 9999.67,
+          "type": "M"
+        },
+        {
+          "txn_id": "2026-06#03",
+          "date": "2026-06-22",
+          "description": "INTEREST ON EMI",
+          "amount": 200.99,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-06-05-C04"
+    },
+    {
+      "rule_id": "F14",
+      "status": "ok",
+      "title": "Minimum amount due is correct",
+      "expected": 11157.1,
+      "actual": 11157.1,
+      "unit": "INR",
+      "calculation": "GST+EMI+fees+interest 10315.69 + over-limit 0.0 + max(2% of remaining, 200) + overdue minimum 0.0, capped at total due",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-06-09-F14"
+    }
+  ],
+  "notes": [
+    {
+      "rule_id": "C12",
+      "status": "info",
+      "title": "First-time merchant: SWIGGY LIMITED Bangalore",
+      "expected": null,
+      "actual": 391.0,
+      "unit": "INR",
+      "calculation": "never seen in 1 earlier statements; largest earlier purchase 7784.0; threshold 1.5 x",
+      "evidence": [
+        {
+          "txn_id": "2026-06#07",
+          "date": "2026-05-28",
+          "description": "SWIGGY LIMITED Bangalore IN",
+          "amount": 391.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "id": "2026-06-06-C12"
+    },
+    {
+      "rule_id": "C12",
+      "status": "info",
+      "title": "First-time merchant: BOOKMYSHOW MUMBAI",
+      "expected": null,
+      "actual": 1068.04,
+      "unit": "INR",
+      "calculation": "never seen in 1 earlier statements; largest earlier purchase 7784.0; threshold 1.5 x",
+      "evidence": [
+        {
+          "txn_id": "2026-06#10",
+          "date": "2026-06-02",
+          "description": "BOOKMYSHOW MUMBAI IN",
+          "amount": 1068.04,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "id": "2026-06-07-C12"
+    }
+  ],
+  "coverage": {
+    "C01": {
+      "status": "evaluated"
+    },
+    "C02": {
+      "status": "evaluated"
+    },
+    "C03": {
+      "status": "evaluated"
+    },
+    "C04": {
+      "status": "evaluated"
+    },
+    "C05": {
+      "status": "evaluated"
+    },
+    "C06": {
+      "status": "evaluated"
+    },
+    "C07": {
+      "status": "evaluated"
+    },
+    "C08": {
+      "status": "evaluated"
+    },
+    "C09": {
+      "status": "evaluated"
+    },
+    "C10": {
+      "status": "evaluated"
+    },
+    "C11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "C12": {
+      "status": "evaluated"
+    },
+    "F01": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F02": {
+      "status": "evaluated"
+    },
+    "F03": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F04": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F05": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F06": {
+      "status": "evaluated"
+    },
+    "F07": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F08": {
+      "status": "evaluated"
+    },
+    "F09": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F10": {
+      "status": "evaluated"
+    },
+    "F11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F12": {
+      "status": "evaluated"
+    },
+    "F13": {
+      "status": "evaluated"
+    },
+    "F14": {
+      "status": "evaluated"
+    },
+    "F15": {
+      "status": "evaluated"
+    },
+    "F16": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F17": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F18": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F19": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F20": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F21": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F22": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F23": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F24": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F25": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    }
+  },
+  "llm": {
+    "provider": "openai_compatible",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "ai_summary": {
+    "summary": "There is one alert: a large charge of Rs. 18,450.00 from a new merchant (PAYU*ZYQ ENTERPRISES MUMBAI) that is higher than expected. Review this transaction to confirm it is correct.",
+    "actions": [
+      "Review the charge of Rs. 18,450.00 from PAYU*ZYQ ENTERPRISES MUMBAI on 2026-06-16"
+    ],
+    "source": "ai",
+    "guardrail": {
+      "sent": true,
+      "passed": true
+    }
+  }
+}

@@ -1,0 +1,257 @@
+PRIVACY-FIRST CREDIT CARD STATEMENT RECONCILIATION & AUDIT ASSISTANT - POC ARCHITECTURE
+=========================================================================================
+
+Goal (from the scope document): tell the cardholder what changed, what does not reconcile and
+what to review on this month's statement, using their own history, while the AI never sees who
+they are.
+
+POC choices
+  * Everything runs locally in Python except the LLM. The default LLM is NVIDIA Nemotron 3 Super
+    on Nebius Token Factory (cloud), so masked payloads - never names, card numbers or other PII -
+    leave the machine. The masking boundary is enforced and logged before every call. Any other
+    Nebius Token Factory model is one settings change away.
+  * Deterministic code does all maths and decides every alert. The LLM checks the alert against
+    the rule text, explains it, summarises the month, answers questions and drafts disputes.
+  * Storage is plain JSON files (one per card per month). SQLite is the obvious next step.
+
+
+1. TRUST ZONES AND LAYERS
+-------------------------
+
+ +--------------------------------------- DEVICE (trusted) -----------------------------------------+
+ |                                                                                                   |
+ |  statement.pdf                                                                                    |
+ |      |                                                                                            |
+ |      v                                                                                            |
+ |  [A] PARSER  cc_audit/parser.py             raw dict (still contains PII)                         |
+ |      |                                                                                            |
+ |      v                                                                                            |
+ |  [B] MASKER  cc_audit/masking.py  ------>   data/vault/token_map.json   (NAME_1 -> real name ...) |
+ |      |        PII -> tokens                  never read by anything except masking/restore        |
+ |      v                                                                                            |
+ |  [C] NORMALIZER  cc_audit/normalizer.py     ids, merchant keys, EMI numbers, card terms           |
+ |      |                                                                                            |
+ |      v                                                                                            |
+ |  [D] LEDGER  cc_audit/ledger.py  <------>   data/ledger/CARD_n/YYYY-MM.json  (masked, 1 per month)|
+ |      |        current month + history                                                             |
+ |      v                                                                                            |
+ |  [E] RULES ENGINE  cc_audit/checks.py  +  cc_audit/calculators.py                                 |
+ |      |   reads config/rulebook.json (built from reconciliation_rulebook.xlsx)                      |
+ |      |   -> findings: alert / ok / info, each with expected, actual, calculation, evidence         |
+ |      v                                                                                            |
+ |  [G] GUARDRAILS (outbound)  cc_audit/guardrails.py   block if any real PII value / PII pattern    |
+ |      |                                                                                            |
+ +------|-------------------------------------- masked JSON only ---------------------------------- +
+        v 
+ +----------------------- LLM ZONE (cloud: Nebius Token Factory, Nemotron 3 Super) -----------------+
+ |  [F] LLM LAYER  cc_audit/llm/*  (swappable)  +  cc_audit/explainer.py (the 4 tasks / prompts)    |
+ |      review_finding | summarize_month | answer_question | draft_dispute                          |
+ +------|------------------------------------------------------------------------------------------- +
+        v
+ +--------------------------------------- DEVICE (trusted) -----------------------------------------+
+ |  [G] GUARDRAILS (inbound)   reply must be the asked JSON, contain no PII, and quote only amounts  |
+ |      |                      that exist in the payload; otherwise a deterministic template is used |
+ |      v                                                                                            |
+ |  [I] REPORT + RESTORE  cc_audit/report.py   data/reports/CARD_n/YYYY-MM.json (masked, AI's view)  |
+ |      |                                      data/reports/CARD_n/YYYY-MM.md   (restored, user view)|
+ |      v                                                                                            |
+ |  [H] AUDIT LOG  cc_audit/audit_log.py       data/audit_log.jsonl - every payload sent to the LLM, |
+ |                                             its reply and the guardrail results                   |
+ |  CLI  audit.py  (orchestration in cc_audit/pipeline.py)                                           |
+ +---------------------------------------------------------------------------------------------------+
+
+Scope document -> POC mapping
+  Upload/unlock ............ streamlit_app.py upload + tools/unlock_pdf.py (password PDFs opened in memory) and audit.py ingest
+  Document parser .......... [A] parser.py (pdfplumber; text-based PDFs of the Meridian layout)
+  PII masker ............... [B] masking.py (field tokens + regex safety net; Presidio later)
+  Normalizer ............... [C] normalizer.py
+  Financial ledger ......... [D] ledger.py
+  Rules/reconciliation ..... [E] checks.py + calculators.py
+  LLM layer ................ [F] llm/ + explainer.py (Nebius Token Factory, Nemotron 3 Super by default)
+  Output guardrails ........ [G] guardrails.py (own checks; NeMo Guardrails later)
+  Restore and UI ........... report.py (Markdown report) + streamlit_app.py (Streamlit web UI) + audit.py (CLI)
+  Audit log ................ [H] audit_log.py
+
+
+2. DATA FLOW (the 7 stages of the scope document)
+--------------------------------------------------
+
+ Stage        Code                         Data at the end of the stage
+ 1 Parse      parser.extract()             raw dict incl. PII (in memory only, never written)
+ 2 Mask       masking.mask_statement()     masked dict + token map saved in data/vault/
+ 3 Normalize  normalizer.normalize()       ledger record -> data/ledger/CARD_n/YYYY-MM.json
+   + store    ledger.save()
+ 4 Reconcile  checks.run_checks()          findings with expected, actual, calculation, evidence
+ 5 Explain    explainer.* via llm/*        masked explanations, summary, answers, dispute drafts
+ 6 Check      guardrails.check_output()    approved masked output (or template fallback)
+ 7 Restore    report.render_markdown()     user's report with real name / card number
+
+ The raw PDF is never copied; the ledger keeps a SHA-256 of it, not its file name (renamed files
+ can carry the cardholder's name).
+
+
+3. STORAGE AND HOW PAST MONTHS ARE USED
+---------------------------------------
+
+ data/
+   vault/token_map.json         token -> real value (device only; delete it and nothing can be restored)
+   ledger/CARD_1/2026-05.json   one normalized, masked statement per month (immutable snapshot)
+   ledger/CARD_1/2026-06.json
+   reports/CARD_1/2026-06.json  masked report (findings + AI output)
+   reports/CARD_1/2026-06.md    restored report for the user
+   audit_log.jsonl              what was masked, what was sent, what came back
+
+ Card identity: CARD_1, CARD_2 ... are stable tokens for the real card number, so every month of
+ the same card lands in the same folder automatically. Re-ingesting a month overwrites that file.
+
+ Nothing derived is stored. Each reconciliation loads:
+     current = ledger.load(card, month)
+     history = ledger.history(card, month)      # all earlier months, oldest first
+     prev    = previous_cycle(current, history) # only if it is the immediately preceding cycle
+ and rebuilds what it needs, so a corrected statement can never leave stale state behind.
+
+ Which checks need history:
+   needs the previous statement   F01/F02/F03 finance charge, F06/F07 late fees, F08 opening
+                                  balance, C07 price increase, C10 continuity of balances
+   needs older history            F12 annual fee (12 months), C02-C06 EMI sequence, C08 new
+                                  recurring charge (3 months), C09 refunds promised earlier,
+                                  C12 new merchant (all months)
+   works on one statement         F10/F11 forex, F13 GST, F14 minimum due, F15 due date,
+                                  C01 duplicates, C10 totals, C11 fee without trigger
+ If a month is missing, history-based rules are reported as "not_applicable" (with the reason),
+ never guessed.
+
+ A new month:  python audit.py ingest new_statement.pdf
+               python audit.py reconcile CARD_n YYYY-MM
+
+
+4. RULES ENGINE (deterministic)
+-------------------------------
+
+ config/rulebook.json  <- python tools/build_rulebook.py  <- reconciliation_rulebook.xlsx
+     parameters (rates, minimums, grace days, tolerance), late fee slabs, EMI plan inputs,
+     rule texts (F01-F25, C01-C12) and "not errors" (N01-N07). Change the Excel, rebuild, done.
+ config/settings.json
+     LLM choice, fee-line catalogue (fee description pattern -> rule and handler), card defaults
+     (used only if the statement does not print them), heuristic thresholds for pattern checks.
+
+ calculators.py  pure formulas: finance charge (average-daily-balance model), GST, forex markup,
+                 late-fee slab, over-limit fee, EMI amount and schedule, processing fee, minimum
+                 due, due date, working-day refund deadline, generic fee formulas.
+ checks.py       one function per rule family, each producing findings:
+
+   {
+     "id": "2026-07-04-F01", "rule_id": "F01", "status": "alert" | "ok" | "info",
+     "title": "...", "expected": 1496.36, "actual": 1795.63, "difference": 299.27, "unit": "INR",
+     "calculation": {... how the expected value was computed ...},
+     "evidence": [{"txn_id": "2026-07#04", "date": ..., "description": ..., "amount": ...}],
+     "related_rules": ["C11"], "allowed_by": "N06", "severity": "high"
+   }
+
+ Rule families implemented
+   C10 totals and continuity, F15 due date, F13 GST, F14 minimum due,
+   F01/F02/F03 finance charge (+N06, N07), F06/F07 late fees (+N01, N05), F08 over-limit,
+   F10/F11 forex (+N02), F12 annual fee, EMI processing fee, C02-C06 EMI tracking,
+   C01 duplicates, C07/C08 subscriptions, C09 promised refunds, C12 new merchants,
+   C11 + F05/F09/F16-F25 generic fees: any fee line must match a catalogue entry and a trigger
+   event, otherwise it is an alert.
+   Rules whose events never occur on these statements (cash advance, dishonour, utility, wallet,
+   rent, fuel ...) are wired through the fee catalogue but untested on real lines.
+
+ "Not errors" are handled inside the checks (they are why the formula allows a charge) and are
+ reported as info notes, so the user also sees why something that looks wrong is fine.
+
+
+5. LLM LAYER (swappable)
+------------------------
+
+ cc_audit/llm/base.py               LLMClient.chat(system, user, json_mode) - the only interface
+ cc_audit/llm/base.py  clean_reply   strips <think> blocks / ```json fences that reasoning models add
+ cc_audit/llm/openai_compatible.py  Nebius Token Factory (OpenAI-compatible); key from NEBIUS_API_KEY, retries on
+                                    429/5xx, extra_body passthrough
+ cc_audit/llm/__init__.py           get_llm() picks the provider from config/settings.json "llm"
+
+ To change model:   edit "llm" in config/settings.json (examples are under "llm_examples"), or for one
+                    run: python audit.py --llm <profile> reconcile ...
+ Default ("llm"): nvidia/nemotron-3-super-120b-a12b on https://api.tokenfactory.nebius.com/v1, key in the
+   environment variable NEBIUS_API_KEY. $0.30 in / $0.90 out per 1M tokens: a full run of the 15
+   statements is ~30 calls of ~2k tokens, about $0.03.
+ Other profiles (llm_examples):
+   nemotron_nebius_super   same as the default
+   nemotron_nebius_nano    nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B on Nebius, $0.06 / $0.24 (~$0.005 per run)
+   Any other model: put its Token Factory model ID in "model" (catalogue: tokenfactory.nebius.com).
+   Reasoning is switched off (enable_thinking false): explaining calculated facts needs no chain of
+   thought, and the guardrail would reject numbers the model works out while reasoning. If a provider
+   rejects that option or JSON mode, the client drops it for the rest of the run.
+ To add a provider: one class with chat(), register it in PROVIDERS.
+
+ explainer.py - the four tasks. Each sends masked JSON inside <data> tags with fixed output keys:
+   review_finding   input: the finding + the rulebook text of its rule(s) + the related
+                    "not error" cases + statement dates. output: rule_check, flag_is_valid
+                    (shown as AI verdict agree / disagree / unsure), explanation.
+                    The verdict is advisory: the alert stays, a disagreement is shown for review.
+   summarize_month  input: headline, alerts, and the month-over-month change already explained
+                    in code (report.change_sentence: what pushed the bill up or down, adding up
+                    exactly to the change, plus any amount no line explains). The LLM only writes
+                    the plain-language note about the alerts and the actions. (llama3 8B got the
+                    change reasoning wrong when asked to do it, so that part is a calculated fact.)
+   answer_question  same facts + the question. output: answer, evidence ids.
+   draft_dispute    input: facts, deadline (transaction date + 90 days, 30 for RuPay domestic)
+                    and channel, all computed in code. output: subject, body.
+
+
+6. GUARDRAILS AND AUDIT
+-----------------------
+
+ Before a call   payload scanned for every real value in the vault and for email / phone /
+                 card number / PAN patterns; if anything is found the call is not made.
+ After a call    reply must parse into the requested keys; must not contain PII; every amount
+                 in it must appear in the payload (no invented numbers). Failing replies are
+                 replaced by a deterministic template and the report labels the text as such.
+ Injection       statement text only travels as JSON data inside <data> with a system rule that
+                 it is never instructions; replies are reduced to fixed keys.
+ Audit log       data/audit_log.jsonl: ingest entries (fields masked) and every LLM call (exact
+                 payload, reply, model, guardrail results, duration).
+ UI labelling    the Markdown report separates "Calculated fact" from "AI explanation".
+
+
+7. COMMANDS
+-----------
+
+ pip install -r requirements.txt            (pdfplumber; openpyxl for the two tools below)
+ export NEBIUS_API_KEY=...                  (the LLM: Nebius Token Factory)
+
+ python extract_statement.py <pdf> [out.json]        PDF -> JSON with star-masked PII
+ python tools/verify_extraction.py <pdf|folder>      reconcile extracted JSON against the PDF itself
+ python tools/build_rulebook.py                      Excel rulebook -> config/rulebook.json
+
+ streamlit run streamlit_app.py                      web UI at http://localhost:8501 (upload a month or
+                                                     see its report, ask, draft disputes)
+ python audit.py run all_15_statements [--no-llm]    ingest a folder and reconcile every month
+ python audit.py ingest <pdf|folder>
+ python audit.py cards
+ python audit.py reconcile CARD_3 2026-07 [--no-llm] (or "all" for every month of a card)
+ python audit.py ask CARD_3 2026-07 "Why is my bill higher this month?"
+ python audit.py dispute CARD_3 2026-07 2026-07-04-F01
+
+ python tools/evaluate.py                            score against the answer key (only this tool reads it)
+
+
+8. EVALUATION (scope document Step 5)
+-------------------------------------
+
+ tools/evaluate.py reports: extraction field accuracy, alert precision and recall per statement,
+ whether planted not-error cases stayed silent, masking recall and leak count across the ledger,
+ masked reports and LLM traffic, over-masking, invented-amount rate and AI verdicts.
+
+
+9. NOT IN THE POC YET (next steps)
+----------------------------------
+
+ * Other issuers / layouts, CSV input, OCR for scanned PDFs
+   (parser.py is the only layout-specific module).
+ * Presidio-based masking and NeMo Guardrails (masking.py / guardrails.py are the places).
+ * SQLite ledger with retention settings; user_status on findings (accepted / disputed).
+ * Richer UI: split screen (user view vs AI view), EMI tracker, audit-log viewer.
+ * Cloud LLM with zero-retention inference via llm/openai_compatible.py.
+ * Heuristic thresholds (new-merchant multiple, recurring-day window) need tuning on real data.

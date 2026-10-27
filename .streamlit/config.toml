@@ -1,0 +1,17 @@
+[theme]
+primaryColor = "#1F3B73"
+backgroundColor = "#F3F1F2"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#0E1A2B"
+# Fonts are loaded by the theme before the page renders (no @import in the app's CSS).
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap, sans-serif"
+headingFont = "Playfair Display:https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap, serif"
+
+[server]
+maxUploadSize = 10
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false

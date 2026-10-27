@@ -1,0 +1,453 @@
+{
+  "card_id": "CARD_2",
+  "month": "2026-09",
+  "statement_date": "2026-09-22",
+  "generated_at": "2026-10-26T19:54:18",
+  "history_months": [
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08"
+  ],
+  "had_previous_statement": true,
+  "headline": {
+    "total_due": 18804.48,
+    "previous_total_due": 23417.84,
+    "change": -4613.36,
+    "minimum_due": 5263.64,
+    "due_date": "2026-10-12",
+    "alerts": 1
+  },
+  "comparison": {
+    "this_month": {
+      "purchases": 13817.18,
+      "emi_instalments": 4341.24,
+      "fees": 500.0,
+      "finance_charges": 0.0,
+      "forex_markup": 0.0,
+      "gst": 146.06,
+      "payments": 23417.84,
+      "refunds": 0.0,
+      "total_amount_due": 18804.48
+    },
+    "last_month": {
+      "purchases": 19009.82,
+      "emi_instalments": 4341.24,
+      "fees": 0.0,
+      "finance_charges": 0.0,
+      "forex_markup": 0.0,
+      "gst": 66.78,
+      "payments": 25715.15,
+      "refunds": 0.0,
+      "total_amount_due": 23417.84
+    },
+    "change": {
+      "purchases": -5192.64,
+      "emi_instalments": 0.0,
+      "fees": 500.0,
+      "finance_charges": 0.0,
+      "forex_markup": 0.0,
+      "gst": 79.28,
+      "payments": -2297.31,
+      "refunds": 0.0,
+      "total_amount_due": -4613.36
+    },
+    "change_drivers": {
+      "total_change": -4613.36,
+      "pushed_the_bill_up": [
+        {
+          "item": "fees",
+          "this_month": 500.0,
+          "last_month": 0.0,
+          "change": 500.0
+        },
+        {
+          "item": "GST",
+          "this_month": 146.06,
+          "last_month": 66.78,
+          "change": 79.28
+        }
+      ],
+      "pulled_the_bill_down": [
+        {
+          "item": "card purchases",
+          "this_month": 13817.18,
+          "last_month": 19009.82,
+          "change": -5192.64
+        }
+      ]
+    },
+    "change_explained": "Total due went down by Rs. 4,613.36 versus last month, mainly because of card purchases down Rs. 5,192.64; partly offset by fees up Rs. 500.00, GST up Rs. 79.28.",
+    "largest_purchases": [
+      {
+        "txn_id": "2026-09#15",
+        "date": "2026-09-13",
+        "merchant": "AMAZON PAY INDIA PRIVA Bangalore",
+        "amount": 4053.0
+      },
+      {
+        "txn_id": "2026-09#09",
+        "date": "2026-09-02",
+        "merchant": "TRENT LIMITED PUNE",
+        "amount": 2442.0
+      },
+      {
+        "txn_id": "2026-09#07",
+        "date": "2026-08-25",
+        "merchant": "PAYU*VIKRAM ENTERPRISES PUNE",
+        "amount": 1665.0
+      },
+      {
+        "txn_id": "2026-09#16",
+        "date": "2026-09-22",
+        "merchant": "BUNDL TECHNOLOGIES BENGALURU",
+        "amount": 1412.0
+      },
+      {
+        "txn_id": "2026-09#12",
+        "date": "2026-09-07",
+        "merchant": "Avenue Supermarts Ltd PUNE",
+        "amount": 1194.18
+      }
+    ]
+  },
+  "alerts": [
+    {
+      "rule_id": "F12",
+      "status": "alert",
+      "title": "Annual fee charged a second time within 12 months",
+      "expected": 0.0,
+      "actual": 500.0,
+      "unit": "INR",
+      "calculation": "already charged on 2026-06-14 (2026-06 statement)",
+      "evidence": [
+        {
+          "txn_id": "2026-09#02",
+          "date": "2026-09-12",
+          "description": "ANNUAL FEE (EXCL TAX 90.00)",
+          "amount": 500.0,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-06#02",
+          "date": "2026-06-14",
+          "description": "ANNUAL FEE (EXCL TAX 90.00)",
+          "amount": 500.0,
+          "type": "D",
+          "statement_month": "2026-06"
+        }
+      ],
+      "related_rules": [
+        "C11"
+      ],
+      "allowed_by": null,
+      "difference": 500.0,
+      "severity": "high",
+      "id": "2026-09-04-F12",
+      "ai": {
+        "source": "ai",
+        "verdict": "agree",
+        "rule_check": "Rule F12 flags when annual fee is charged more than once in 12 months; here two fees exist (June and September) within 12 months.",
+        "explanation": "Your annual fee was charged twice—once in June and again in September—within a 12-month period. This violates the once-per-year rule. Please raise this with your card issuer.",
+        "guardrail": {
+          "sent": true,
+          "passed": true
+        }
+      }
+    }
+  ],
+  "checks_passed": [
+    {
+      "rule_id": "C10",
+      "status": "ok",
+      "title": "Total amount due adds up",
+      "expected": 18804.48,
+      "actual": 18804.48,
+      "unit": "INR",
+      "calculation": "23417.84 - 23417.84 - 0.0 + 17846.98 + 957.5 = 18804.48",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-09-01-C10"
+    },
+    {
+      "rule_id": "F15",
+      "status": "ok",
+      "title": "Payment due date is correct",
+      "expected": "2026-10-12",
+      "actual": "2026-10-12",
+      "unit": "date",
+      "calculation": "statement date 2026-09-22 + 20 days",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "id": "2026-09-02-F15"
+    },
+    {
+      "rule_id": "F13",
+      "status": "ok",
+      "title": "GST on fees and interest is 18%",
+      "expected": 146.06,
+      "actual": 146.06,
+      "unit": "INR",
+      "calculation": "18% x 811.44 (fees + interest + charges)",
+      "evidence": [
+        {
+          "txn_id": "2026-09#02",
+          "date": "2026-09-12",
+          "description": "ANNUAL FEE (EXCL TAX 90.00)",
+          "amount": 500.0,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-09#04",
+          "date": "2026-09-22",
+          "description": "INTEREST ON EMI",
+          "amount": 311.44,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-09#05",
+          "date": null,
+          "description": "IGST DB @ 18.00%",
+          "amount": 146.06,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-09-03-F13"
+    },
+    {
+      "rule_id": "C04",
+      "status": "ok",
+      "title": "EMI-B: EMI 5/9 matches the plan",
+      "expected": 4341.24,
+      "actual": 4341.24,
+      "unit": "INR",
+      "calculation": "principal 4029.8 + interest 311.44 (opening 20762.6 x 18%/12)",
+      "evidence": [
+        {
+          "txn_id": "2026-09#03",
+          "date": "2026-09-22",
+          "description": "FP EMI 05/09(EXCL TAX 56.06)",
+          "amount": 4029.8,
+          "type": "M"
+        },
+        {
+          "txn_id": "2026-09#04",
+          "date": "2026-09-22",
+          "description": "INTEREST ON EMI",
+          "amount": 311.44,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-09-05-C04"
+    },
+    {
+      "rule_id": "C07",
+      "status": "ok",
+      "title": "Recurring charge unchanged: GOOGLE *YOUTUBEPREMIUM g.co/helppay#",
+      "expected": 189.0,
+      "actual": 189.0,
+      "unit": "INR",
+      "calculation": null,
+      "evidence": [
+        {
+          "txn_id": "2026-07#18",
+          "date": "2026-07-12",
+          "description": "GOOGLE *YOUTUBEPREMIUM g.co/helppay# IN",
+          "amount": 189.0,
+          "type": "D",
+          "statement_month": "2026-07"
+        },
+        {
+          "txn_id": "2026-08#15",
+          "date": "2026-08-12",
+          "description": "GOOGLE *YOUTUBEPREMIUM g.co/helppay# IN",
+          "amount": 189.0,
+          "type": "D",
+          "statement_month": "2026-08"
+        },
+        {
+          "txn_id": "2026-09#14",
+          "date": "2026-09-12",
+          "description": "GOOGLE *YOUTUBEPREMIUM g.co/helppay# IN",
+          "amount": 189.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-09-06-C07"
+    },
+    {
+      "rule_id": "F14",
+      "status": "ok",
+      "title": "Minimum amount due is correct",
+      "expected": 5263.64,
+      "actual": 5263.64,
+      "unit": "INR",
+      "calculation": "GST+EMI+fees+interest 4987.3 + over-limit 0.0 + max(2% of remaining, 200) + overdue minimum 0.0, capped at total due",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-09-07-F14"
+    }
+  ],
+  "notes": [],
+  "coverage": {
+    "C01": {
+      "status": "evaluated"
+    },
+    "C02": {
+      "status": "evaluated"
+    },
+    "C03": {
+      "status": "evaluated"
+    },
+    "C04": {
+      "status": "evaluated"
+    },
+    "C05": {
+      "status": "evaluated"
+    },
+    "C06": {
+      "status": "evaluated"
+    },
+    "C07": {
+      "status": "evaluated"
+    },
+    "C08": {
+      "status": "evaluated"
+    },
+    "C09": {
+      "status": "evaluated"
+    },
+    "C10": {
+      "status": "evaluated"
+    },
+    "C11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "C12": {
+      "status": "evaluated"
+    },
+    "F01": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F02": {
+      "status": "evaluated"
+    },
+    "F03": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F04": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F05": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F06": {
+      "status": "evaluated"
+    },
+    "F07": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F08": {
+      "status": "evaluated"
+    },
+    "F09": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F10": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F12": {
+      "status": "evaluated"
+    },
+    "F13": {
+      "status": "evaluated"
+    },
+    "F14": {
+      "status": "evaluated"
+    },
+    "F15": {
+      "status": "evaluated"
+    },
+    "F16": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F17": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F18": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F19": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F20": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F21": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F22": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F23": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F24": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F25": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    }
+  },
+  "llm": {
+    "provider": "openai_compatible",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "ai_summary": {
+    "summary": "An alert shows your annual fee was charged twice this year (Rs. 500). No other issues need review.",
+    "actions": [
+      "Check if the annual fee was incorrectly duplicated; contact support if it should be refunded."
+    ],
+    "source": "ai",
+    "guardrail": {
+      "sent": true,
+      "passed": true
+    }
+  }
+}
