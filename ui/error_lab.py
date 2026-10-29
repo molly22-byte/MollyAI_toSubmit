@@ -142,11 +142,9 @@ def signature(change):
 # ---------------------------------------------------------------- page
 
 def page(on_open_rule, go_report, live_runs_left, count_live_run, llm_ok, go_customrules=None):
-    md('<div class="fact"><div class="label">How the Error Lab works</div>Pick a clean sample statement, plant up to '
-       f'{lab.MAX_CHANGES} errors (one-click presets or your own edits), say what you expect, and run the audit. '
-       '<b>Edits are applied to the parsed statement data - after PDF extraction, before masking and the rules '
-       'engine.</b> The engine only receives the edited statement; your list of changes and expectations stay on '
-       'this page and are used only to score the result afterwards.</div>')
+    md('<div class="steps mini"><div><b>1</b>Pick a clean statement</div><div><b>2</b>Plant up to '
+       f'{lab.MAX_CHANGES} errors</div><div><b>3</b>Run the audit</div><div><b>4</b>See what was caught</div></div>')
+    st.caption("Edits go into the parsed statement before masking and the rules; the engine never sees your list of changes.")
     files = clean_samples()
     if not files or not samples.WORKSPACE.exists():
         st.warning("The sample cache is missing - run python tools/build_sample_cache.py.")
@@ -248,10 +246,10 @@ def page(on_open_rule, go_report, live_runs_left, count_live_run, llm_ok, go_cus
         st.error(e)
     live_left = live_runs_left()
     use_ai = llm_ok and live_left > 0
-    st.caption("With Nemotron explanations (uses one of your live AI runs)." if use_ai else
+    st.caption("With AI explanations (uses one of your live AI runs)." if use_ai else
                "AI text is skipped for this run (live AI runs used up or no API key) - the rules run exactly the same.")
     if st.button("Run the audit on my edited statement", type="primary", disabled=bool(errors) or not changes, key="lab_run"):
-        with st.spinner("Running masking, rules" + (" and Nemotron (30-60 seconds per alert)..." if use_ai else "...")):
+        with st.spinner("Running masking, rules" + (" and AI explanations (30-60 seconds per alert)..." if use_ai else "...")):
             final, rid_to_txn = lab.finalize(s["raw"], edited, keep_totals=keep,
                                              gst_edited=any(c.get("gst_edited") for c in changes))
             record, report = lab.run(file, final, use_llm=use_ai, llm=get_llm() if use_ai else None)
@@ -286,7 +284,7 @@ def results(r, on_open_rule, go_report):
             change = esc(row["note"] if row["source"] == "preset" else f'{row["label"]} · {row["column"]}: {row["old"]} -> {row["new"]}')
             expected = ("should be flagged" if row["should_flag"] else "should NOT be flagged") + (
                 f'<br><span class="muted">{esc(", ".join(row["rules"]) or "no rule covers this")}</span>')
-            flags = "<br>".join(f'{pill(f["rule_id"], "code")} {esc(f["title"])}' for f in row["flags"]) or '<span class="muted">none</span>'
+            flags = "<br>".join(f'{rules.id_pill(f["rule_id"])} {esc(f["title"])}' for f in row["flags"]) or '<span class="muted">none</span>'
             if row["why_missed"]:
                 flags += f'<br><span class="muted">{esc("; ".join(row["why_missed"]))}</span>'
             rows.append([change, expected, flags, pill(row["status"], STATUS_PILL[row["status"]])])
@@ -295,13 +293,13 @@ def results(r, on_open_rule, go_report):
             md(f'<div class="note">{esc(lab.NOT_COVERED_MESSAGE)} You can also write such a rule yourself on the '
                f'Custom rules page and run this again.</div>')
         for f in r.get("rule_errors", []):
-            md(f'<div class="note">{pill(f["rule_id"], "code")} {esc(f["title"])}</div>')
+            md(f'<div class="note">{rules.id_pill(f["rule_id"])} {esc(f["title"])}</div>')
         if r["related"]:
             md("<b>Related flags</b> <span class=\"muted\">- extra alerts your changes caused elsewhere (e.g. a total "
                "that no longer adds up). They are not false alarms.</span>")
-            md("<ul>" + "".join(f'<li>{pill(f["rule_id"], "code")} {esc(f["title"])}</li>' for f in r["related"]) + "</ul>")
+            md("<ul>" + "".join(f'<li>{rules.id_pill(f["rule_id"])} {esc(f["title"])}</li>' for f in r["related"]) + "</ul>")
         ids = [f["rule_id"] for row in r["rows"] for f in row["flags"]] + [x for row in r["rows"] for x in row["rules"]] \
             + [f["rule_id"] for f in r["related"]]
         rules.rule_chips(ids, "lab_result", on_open_rule)
-        st.button("Open the full report for this run" + (" (with Nemotron explanations)" if r["ai"] else ""),
+        st.button("Open the full report for this run" + (" (with AI explanations)" if r["ai"] else ""),
                   key="lab_open_report", on_click=go_report, args=(r["card"], r["month"]))

@@ -1,4 +1,4 @@
-"""Judge passkey for the "For judges" pages (Rulebook, Error Lab, answer-key view, scorecard).
+"""Judge passkey for the "For judges" pages (Rulebook, Error Lab, custom rules, answer-key view).
 
 The passkey to compare against is JUDGE_PASSKEY: from .env locally (load_dotenv() in streamlit_app.py),
 from the environment / App settings -> Secrets on Streamlit Cloud. If none is configured the pages stay

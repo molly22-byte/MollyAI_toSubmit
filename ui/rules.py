@@ -20,6 +20,20 @@ DISCLAIMER = ("<b>Demo rulebook - for hackathon evaluation only.</b><br>These ru
               "authoritative source.")
 DISCLAIMER_SHORT = "Demo rule for evaluation only - not official bank policy."
 GROUPS = [("bank_fee", "Bank rules"), ("common_sense", "Common-sense checks"), ("not_errors", "Not errors")]
+# 1-2 word hover labels for rule ID pills
+SHORT = {
+    "C01": "Duplicate charge", "C02": "Missing EMI", "C03": "Repeated EMI", "C04": "EMI changed", "C05": "EMI count",
+    "C06": "EMI plan", "C07": "Price increase", "C08": "New subscription", "C09": "Missing refund",
+    "C10": "Totals mismatch", "C11": "Unexplained fee", "C12": "New merchant",
+    "F01": "Interest rate", "F02": "Interest-free", "F03": "Minimum interest", "F04": "Cash interest",
+    "F05": "Cash fee", "F06": "Late fee", "F07": "Extra late fee", "F08": "Over-limit fee", "F09": "Bounce fee",
+    "F10": "Forex markup", "F11": "DCC fee", "F12": "Annual fee", "F13": "GST", "F14": "Minimum due",
+    "F15": "Due date", "F16": "Utility fee", "F17": "Education fee", "F18": "Wallet fee", "F19": "Rent fee",
+    "F20": "Fuel surcharge", "F21": "Cash payment", "F22": "Cheque fee", "F23": "Redemption fee",
+    "F24": "Replacement fee", "F25": "Unpaid EMI",
+    "N01": "Grace period", "N02": "Forex kept", "N03": "Over-limit kept", "N04": "Rent fee kept",
+    "N05": "No late fee", "N06": "Carried interest", "N07": "Immediate interest",
+}
 
 
 def raw_rulebook():
@@ -43,6 +57,16 @@ def rule_name(rule_id):
     if rule_id in rb.not_errors:
         return rb.not_errors[rule_id].get("looks_wrong") or rule_id
     return rule_id
+
+
+def short_label(rule_id):
+    """The 1-2 word hover text of a rule ID (custom J rules show their own name)."""
+    return SHORT.get(rule_id) or rule_name(rule_id)
+
+
+def id_pill(rule_id):
+    """A rule ID pill that shows its short description on hover."""
+    return f'<span class="pill code rid" title="{esc(short_label(rule_id))}">{esc(rule_id)}</span>'
 
 
 def dash(value):
@@ -72,7 +96,7 @@ def rule_rows(rule_id):
 
 def label_html(rule_id):
     """For HTML tables: the rule ID for judges, the plain-English name for everyone else."""
-    return pill(rule_id, "code") if judge.unlocked() else esc(rule_name(rule_id))
+    return id_pill(rule_id) if judge.unlocked() else esc(rule_name(rule_id))
 
 
 def rule_chip(rule_id, key, on_open=None):
@@ -80,7 +104,7 @@ def rule_chip(rule_id, key, on_open=None):
     if not judge.unlocked():
         md(pill(rule_name(rule_id), "code"))
         return
-    with st.popover(rule_id, help=rule_name(rule_id)):
+    with st.popover(rule_id, help=short_label(rule_id)):
         md(f'<div style="font-weight:600;color:var(--primary)">{esc(rule_id)} &middot; {esc(rule_name(rule_id))}</div>')
         md(table(None, [[f'<span class="muted">{esc(k)}</span>', esc(v)] for k, v in rule_rows(rule_id)]))
         st.caption(DISCLAIMER_SHORT)
@@ -100,12 +124,12 @@ def rule_chips(rule_ids, key, on_open=None, label="Rule details:"):
 
 
 def rulebook_page(version, selected=None):
-    md(f'<div class="note" style="font-size:14px;line-height:1.5">{DISCLAIMER}</div>')
     raw = raw_rulebook()
     rb = rulebook()
-    md(f'<p class="muted">Read from <code class="tok">config/rulebook.json</code> - the same file the audit engine runs '
-       f'on. Version <code class="tok">{esc(version)}</code>, built {esc(dash(raw.get("built_at")))} from '
-       f'{esc(dash(raw.get("built_from")))}.</p>')
+    md(f'<div class="note">{esc(DISCLAIMER_SHORT)} <span class="muted">&middot; source <code class="tok">'
+       f'config/rulebook.json</code> &middot; version <code class="tok">{esc(version)}</code></span></div>')
+    with st.expander("Disclaimer"):
+        md(f'<p style="font-size:14px;line-height:1.5;margin:0">{DISCLAIMER}</p>')
     query = st.text_input("Search by rule ID or keyword", key="rb_search", placeholder="e.g. F06, late fee, GST")
     q = (query or "").strip().lower()
     groups = {"bank_fee": sorted(k for k, r in rb.rules.items() if r.get("group") == "bank_fee"),
@@ -124,13 +148,13 @@ def rulebook_page(version, selected=None):
             st.caption(f"{len(shown)} of {len(ids)} shown")
             if group == "not_errors":
                 head = ["Case", "Looks wrong", "Why it is allowed", "Source"]
-                rows = [[pill(rid, "code"), *(esc(v) for _, v in rule_rows(rid))] for rid in shown]
+                rows = [[id_pill(rid), *(esc(v) for _, v in rule_rows(rid))] for rid in shown]
             else:
                 head = ["Rule ID", "Plain-English name", "What it checks", "Formula / limit", "Source", "Severity"]
                 rows = []
                 for rid in shown:
                     f = dict(rule_rows(rid))
-                    rows.append([pill(rid, "code"), esc(rule_name(rid)), esc(f["What it checks (flag if)"]),
+                    rows.append([id_pill(rid), esc(rule_name(rid)), esc(f["What it checks (flag if)"]),
                                  esc(f["Formula / limit"]), esc(f["Source"]), esc(f["Severity when flagged"])])
             if rows:
                 md(table(head, rows))

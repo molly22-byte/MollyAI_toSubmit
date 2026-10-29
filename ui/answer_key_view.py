@@ -1,19 +1,18 @@
-"""Judge view: compare a sample's report with the answer key. Shown only for sample statements.
+"""Judge view: compare a sample's report with the answer key, line by line. Shown only for sample statements.
 
 This is the only UI module that reads the answer key, and it does so through tools/evaluate.py
 (load_answer_key / find_statement / score_statement), so the UI scores exactly like the evaluator.
 The engine (cc_audit/) never imports or reads it; tests/test_engine_isolation.py enforces that.
 """
-from datetime import datetime
+import re
 from functools import lru_cache
 
 import streamlit as st
 
 from cc_audit.config import rulebook
 from tools.evaluate import DEFAULT_KEY, find_statement, load_answer_key, score_statement
-from ui.components import esc, md, pill, show_value, table
-
-TOLERANCE = 1.0          # Rs 1, as in the rulebook
+from ui.components import esc, inr, md, pill, table
+from ui.rules import id_pill
 
 
 @lru_cache(maxsize=1)
@@ -67,32 +66,7 @@ def verdict(c):
             f"{c['false_alarms']} false alarm{'s' if c['false_alarms'] != 1 else ''}")
 
 
-def as_number(text):
-    """'799.00' -> 799.0, '11 Sep 26' -> '2026-09-11'; anything else (e.g. '2 occurrences') -> None."""
-    if text is None:
-        return None
-    if isinstance(text, (int, float)):
-        return float(text)
-    try:
-        return float(str(text).replace(",", "").replace("Rs", "").strip())
-    except ValueError:
-        pass
-    try:
-        return datetime.strptime(str(text).strip(), "%d %b %y").date().isoformat()
-    except ValueError:
-        return None
-
-
-def same(key_value, our_value):
-    a = as_number(key_value)
-    if a is None or our_value is None:
-        return None
-    if isinstance(a, float) and isinstance(our_value, (int, float)):
-        return abs(a - our_value) <= TOLERANCE
-    return str(a) == str(our_value)
-
-
-STATUS_PILL = {"Caught": "ok", "Correctly not flagged": "ok", "Missed": "bad", "False alarm": "bad", "Check false alarms": "inf"}
+RESULT_PILL = {"Caught": "bad", "OK": "ok", "Missed": "bad", "False alarm": "bad"}
 
 
 def rule_name(rule_id):
@@ -103,78 +77,88 @@ def rule_name(rule_id):
     return ne["looks_wrong"] if ne else rule_id
 
 
-def render(report):
+def line_key(date, description, amount, kind):
+    return (date, re.sub(r"\s+", " ", str(description or "")).strip(), round(float(amount or 0), 2), kind)
+
+
+def by_transaction(report, record):
+    """One row per statement line: what the answer key planted on it (if anything) and what our report did.
+
+    Lines the answer key does not mark are 'OK' unless our report raised an alert for them that the key does not
+    list (a false alarm). Planted errors that are not on a line (e.g. the due date) come back as statement-level rows.
+    Caught / missed is decided per rule ID, as in tools/evaluate.py.
+    """
     c = compare(report)
     if c is None:
+        return None
+    key, f, month = answer_key(), c["file"], record["month"]
+    planted = [p for p in key["planted"] if p["File"] == f]
+    planted_ids = {p["Rule ID"] for p in planted}
+    raised = {a["rule_id"] for a in report["alerts"]}
+    marked = {}
+    for t in key["transactions"]:
+        if t["File"] == f and t["Planted rule on this line"]:
+            marked[line_key(t["Date"], t["Printed description"], t["Amount (Rs)"], t["D/C/M"])] = t["Planted rule on this line"]
+    flagged = {}                                    # this month's txn_id -> rule IDs our report raised on it
+    for a in report["alerts"]:
+        for e in a.get("evidence") or []:
+            tid = str(e.get("txn_id") or "")
+            if tid.startswith(f"{month}#") and e.get("statement_month") in (None, month):
+                flagged.setdefault(tid, []).append(a["rule_id"])
+    lines, on_lines = [], set()
+    for t in record["transactions"]:
+        rule = marked.get(line_key(t["date"], t["description"], t["amount"], t["type"]))
+        ours = list(dict.fromkeys(flagged.get(t["id"], [])))
+        if rule:
+            on_lines.add(rule)
+            status = "Caught" if rule in raised else "Missed"
+        else:
+            status = "False alarm" if any(r not in planted_ids for r in ours) else "OK"
+        lines.append({"date": t["date"], "description": t["description"], "amount": t["amount"], "type": t["type"],
+                      "planted": rule, "ours": ours, "status": status})
+    statement_level = [{"rule_id": p["Rule ID"], "what": p["What was planted"], "where": p["Where on statement"],
+                        "expected": p["Expected value"], "printed": p["Printed value"],
+                        "status": "Caught" if p["Rule ID"] in raised else "Missed"}
+                       for p in planted if p["Rule ID"] not in on_lines]
+    on_any_line = {r for ln in lines for r in ln["ours"]}
+    for a in report["alerts"]:
+        if a["rule_id"] not in planted_ids and a["rule_id"] not in on_any_line:
+            statement_level.append({"rule_id": a["rule_id"], "what": a["title"], "where": "Statement",
+                                    "expected": None, "printed": None, "status": "False alarm"})
+    return {**c, "lines": lines, "statement_level": statement_level}
+
+
+def render(report, record):
+    v = by_transaction(report, record)
+    if v is None:
         st.info("This report does not match a row of the answer key.")
         return
-    md(f'<div class="stats">'
-       f'<div class="stat"><span class="k">Planted errors</span><b>{c["planted"]}</b></div>'
-       f'<div class="stat"><span class="k">Caught</span><b style="color:var(--ok)">{c["caught"]}</b></div>'
-       f'<div class="stat"><span class="k">Missed</span><b style="color:{"var(--alert)" if c["missed"] else "var(--primary)"}">{c["missed"]}</b></div>'
-       f'<div class="stat"><span class="k">False alarms</span><b style="color:{"var(--alert)" if c["false_alarms"] else "var(--primary)"}">{c["false_alarms"]}</b></div>'
-       f'<div class="stat"><span class="k">Not-errors handled correctly</span><b>{c["not_errors_ok"]} of {c["not_errors"]}</b></div>'
+    good = not v["missed"] and not v["false_alarms"]
+    md(f'<div class="kpis">'
+       f'<div class="kpi"><span>Planted errors</span><b>{v["planted"]}</b></div>'
+       f'<div class="kpi bad"><span>Caught</span><b>{v["caught"]}</b></div>'
+       f'<div class="kpi {"bad" if v["missed"] else ""}"><span>Missed</span><b>{v["missed"]}</b></div>'
+       f'<div class="kpi {"bad" if v["false_alarms"] else ""}"><span>False alarms</span><b>{v["false_alarms"]}</b></div>'
        f'</div>')
-    good = not c["missed"] and not c["false_alarms"]
-    md(f'<div class="{"fact" if good else "note"}" style="font-weight:600">{esc(verdict(c))}'
-       f' <span class="muted" style="font-weight:400">&middot; answer-key row {esc(c["file"])}</span></div>')
+    md(f'<div class="banner {"ok" if good else "bad"}">{"&#10003;" if good else "!"} {esc(verdict(v))}</div>')
 
-    out = []
-    for r in c["rows"]:
-        a = r["alert"]
-        name = f'{esc(rule_name(r["rule_id"]))}<br><span class="muted" style="font-size:11.5px">{esc(r["rule_id"])}</span>'
-        if r["status"] in ("Correctly not flagged", "Check false alarms"):
-            key_cell = f'Not an error<br><span class="muted">{esc(r["what"])}</span>'
-            ours = f'No alert &middot; {esc(r["handled"])}'
-        else:
-            key_cell = (f'{esc(r["key_expected"])} vs {esc(r["key_printed"])}<br><span class="muted">{esc(r["what"])}</span>'
-                        if r["key_expected"] is not None else '<span class="muted">Not planted</span>')
-            if a:
-                ours = f'{esc(show_value(a["expected"], a["unit"]))} vs {esc(show_value(a["actual"], a["unit"]))}'
-                checks = [same(r["key_expected"], a["expected"]), same(r["key_printed"], a["actual"])]
-                if r["key_expected"] is not None and None not in checks:
-                    ours += " " + (pill("numbers match", "ok") if all(checks) else pill("numbers differ", "inf"))
-            else:
-                ours = '<span class="muted">No alert</span>'
-        out.append([name, key_cell, ours, pill(r["status"], STATUS_PILL[r["status"]])])
-    if out:
-        md(table(["Rule", "Answer key: expected vs printed", "Our report: expected vs actual", "Status"], out))
-    else:
-        md('<p class="muted">Nothing was planted on this statement and nothing was raised.</p>')
+    if v["statement_level"]:
+        md('<div class="label" style="margin-top:14px">Statement-level items</div>')
+        for r in v["statement_level"]:
+            values = (f'<span class="muted">expected {esc(r["expected"])} &middot; printed {esc(r["printed"])}</span>'
+                      if r["expected"] is not None else "")
+            md(f'<div class="srow">{id_pill(r["rule_id"])}<span class="t"><b>{esc(r["where"])}</b> &middot; '
+               f'{esc(r["what"])}<br>{values}</span>{pill(r["status"], RESULT_PILL[r["status"]])}</div>')
 
-    with st.expander("How to read this"):
-        st.markdown(
-            "- **Caught**: the answer key planted this error and our report raised an alert for the same rule.\n"
-            "- **Missed**: the answer key planted this error but our report did not raise it.\n"
-            "- **False alarm**: our report raised an alert the answer key does not list as an error.\n"
-            "- **Correctly not flagged**: something that looks wrong but is allowed (a *not-error*), and we did not "
-            "raise an alert for it. *Recognised as allowed* means the report also explains why in *Good to know*.\n"
-            "- **numbers match**: the answer key's expected / printed values equal our expected / actual within Rs 1 "
-            "(dates must be equal). Counts such as *2 occurrences* are not compared.\n\n"
-            "Rows are matched to the answer key by statement date and printed total due, with the same scoring "
-            "code as `python tools/evaluate.py`. The audit engine never reads the answer key.")
-
-
-def scorecard(reports):
-    """reports: {sample file: masked report or None}. Renders the all-samples table with totals."""
-    rows, tot = [], {"planted": 0, "caught": 0, "missed": 0, "false_alarms": 0, "not_errors": 0, "not_errors_ok": 0}
-    for f, rep in reports.items():
-        c = compare(rep) if rep else None
-        if c is None:
-            rows.append([esc(f), "-", "-", "-", "-", "-", '<span class="muted">not in the cache</span>'])
-            continue
-        for k in tot:
-            tot[k] += c[k]
-        ok = not c["missed"] and not c["false_alarms"]
-        rows.append([esc(f), pill("Clean", "ok") if c["clean"] else pill("Has issues", "inf"),
-                     str(c["planted"]), str(c["caught"]), str(c["missed"]), str(c["false_alarms"]),
-                     pill(verdict(c), "ok" if ok else "bad")])
-    md(f'<div class="stats">'
-       f'<div class="stat"><span class="k">Planted errors</span><b>{tot["planted"]}</b></div>'
-       f'<div class="stat"><span class="k">Caught</span><b style="color:var(--ok)">{tot["caught"]}</b></div>'
-       f'<div class="stat"><span class="k">Missed</span><b>{tot["missed"]}</b></div>'
-       f'<div class="stat"><span class="k">False alarms</span><b>{tot["false_alarms"]}</b></div>'
-       f'<div class="stat"><span class="k">Not-errors handled correctly</span><b>{tot["not_errors_ok"]} of {tot["not_errors"]}</b></div>'
-       f'</div>')
-    md(table(["Sample", "Answer key", "Planted", "Caught", "Missed", "False alarms", "Verdict"], rows, num_cols=(2, 3, 4, 5)))
-    return tot
+    md('<div class="label" style="margin-top:14px">Every transaction on this statement</div>')
+    rows = []
+    for ln in v["lines"]:
+        key_cell = (f'{id_pill(ln["planted"])} <span class="muted">planted</span>' if ln["planted"]
+                    else '<span class="muted">OK</span>')
+        ours = " ".join(id_pill(r) for r in ln["ours"]) or '<span class="muted">-</span>'
+        rows.append([esc(ln["date"] or "-"), esc(ln["description"]), esc(inr(ln["amount"])), key_cell, ours,
+                     pill(ln["status"], RESULT_PILL[ln["status"]])])
+    md(table(["Date", "Description", "Amount", "Answer key", "MollyAI flagged", "Result"], rows, num_cols=(2,)))
+    ne = [f'{id_pill(case_id)} {pill("not flagged", "ok")}' for case_id, _ in v["score"]["not_errors"]]
+    if ne:
+        md(f'<p class="muted" style="margin-top:8px">Looks wrong but allowed: {" ".join(ne)}</p>')

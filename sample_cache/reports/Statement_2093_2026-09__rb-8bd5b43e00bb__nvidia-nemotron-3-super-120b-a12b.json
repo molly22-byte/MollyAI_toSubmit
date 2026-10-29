@@ -1,0 +1,547 @@
+{
+  "card_id": "CARD_1",
+  "month": "2026-09",
+  "statement_date": "2026-09-22",
+  "generated_at": "2026-10-29T00:11:46",
+  "history_months": [
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08"
+  ],
+  "had_previous_statement": true,
+  "headline": {
+    "total_due": 38712.57,
+    "previous_total_due": 40533.29,
+    "change": -1820.72,
+    "minimum_due": 2124.08,
+    "due_date": "2026-10-12",
+    "alerts": 2
+  },
+  "comparison": {
+    "this_month": {
+      "purchases": 36335.19,
+      "emi_instalments": 0.0,
+      "fees": 1100.0,
+      "finance_charges": 0.0,
+      "forex_markup": 67.27,
+      "gst": 210.11,
+      "payments": 40533.29,
+      "refunds": 0.0,
+      "total_amount_due": 38712.57
+    },
+    "last_month": {
+      "purchases": 30234.91,
+      "emi_instalments": 10200.66,
+      "fees": 0.0,
+      "finance_charges": 0.0,
+      "forex_markup": 67.41,
+      "gst": 30.31,
+      "payments": 40937.4,
+      "refunds": 0.0,
+      "total_amount_due": 40533.29
+    },
+    "change": {
+      "purchases": 6100.28,
+      "emi_instalments": -10200.66,
+      "fees": 1100.0,
+      "finance_charges": 0.0,
+      "forex_markup": -0.14,
+      "gst": 179.8,
+      "payments": -404.11,
+      "refunds": 0.0,
+      "total_amount_due": -1820.72
+    },
+    "change_drivers": {
+      "total_change": -1820.72,
+      "pushed_the_bill_up": [
+        {
+          "item": "card purchases",
+          "this_month": 36335.19,
+          "last_month": 30234.91,
+          "change": 6100.28
+        },
+        {
+          "item": "fees",
+          "this_month": 1100.0,
+          "last_month": 0.0,
+          "change": 1100.0
+        },
+        {
+          "item": "GST",
+          "this_month": 210.11,
+          "last_month": 30.31,
+          "change": 179.8
+        }
+      ],
+      "pulled_the_bill_down": [
+        {
+          "item": "EMI instalments",
+          "this_month": 0.0,
+          "last_month": 10200.66,
+          "change": -10200.66
+        }
+      ],
+      "not_explained_by_any_line": 1000.0
+    },
+    "change_explained": "Total due went down by Rs. 1,820.72 versus last month, mainly because of EMI instalments down Rs. 10,200.66; partly offset by card purchases up Rs. 6,100.28, fees up Rs. 1,100.00. Rs. 1,000.00 of the change is not explained by any line on the statement.",
+    "largest_purchases": [
+      {
+        "txn_id": "2026-09#21",
+        "date": "2026-09-20",
+        "merchant": "DIVERSE RETAILS BENGALURU",
+        "amount": 5059.17
+      },
+      {
+        "txn_id": "2026-09#15",
+        "date": "2026-09-13",
+        "merchant": "AMAZON PAY INDIA PRIVA Bangalore",
+        "amount": 4714.0
+      },
+      {
+        "txn_id": "2026-09#14",
+        "date": "2026-09-12",
+        "merchant": "AMAZON PAY INDIA PRIVA Bangalore",
+        "amount": 4209.0
+      },
+      {
+        "txn_id": "2026-09#18",
+        "date": "2026-09-16",
+        "merchant": "DIVERSE RETAILS BENGALURU",
+        "amount": 4106.8
+      },
+      {
+        "txn_id": "2026-09#08",
+        "date": "2026-08-30",
+        "merchant": "RAZ*Rsl Consult Bengaluru",
+        "amount": 3336.0
+      }
+    ]
+  },
+  "alerts": [
+    {
+      "rule_id": "C10",
+      "status": "alert",
+      "title": "Total amount due does not add up",
+      "expected": 37712.57,
+      "actual": 38712.57,
+      "unit": "INR",
+      "calculation": "40533.29 - 40533.29 - 0.0 + 36335.19 + 1377.38 = 37712.57",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 1000.0,
+      "severity": "high",
+      "id": "2026-09-01-C10",
+      "ai": {
+        "source": "ai",
+        "verdict": "agree",
+        "rule_check": "Rule C10 flags when total amount due does not equal opening balance + purchases + fees + interest + GST - payments - refunds",
+        "explanation": "Your total amount due shown on the statement (₹38,712.57) does not match the recalculated amount based on your transactions (₹37,712.57). This suggests a possible error in how charges or payments were applied. Please contact your card issuer to review the discrepancy.",
+        "guardrail": {
+          "sent": true,
+          "passed": true
+        }
+      }
+    },
+    {
+      "rule_id": "F06",
+      "status": "alert",
+      "title": "Late payment fee charged although the minimum due was paid on time",
+      "expected": 0.0,
+      "actual": 1100.0,
+      "unit": "INR",
+      "calculation": "minimum due 10903.08 of the 2026-08 statement; due 2026-09-11, grace until 2026-09-14; slab for amount due 40533.29 = 1100.0",
+      "evidence": [
+        {
+          "txn_id": "2026-09#02",
+          "date": "2026-09-15",
+          "description": "LATE PAYMENT FEE (EXCL TAX 198.00)",
+          "amount": 1100.0,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-09#01",
+          "date": "2026-09-02",
+          "description": "PAYMENT RECEIVED 000BD0162880BAMAAAMQ4E5V",
+          "amount": 40533.29,
+          "type": "C"
+        }
+      ],
+      "related_rules": [
+        "C11"
+      ],
+      "allowed_by": null,
+      "difference": 1100.0,
+      "severity": "high",
+      "id": "2026-09-04-F06",
+      "ai": {
+        "source": "ai",
+        "verdict": "agree",
+        "rule_check": "Rule F06 flags if fee charged although minimum due was paid on time; here minimum due 10903.08 was paid via full payment 40533.29 on 2026-09-02, before due date 2026-09-11 plus grace until 2026-09-14, so condition is met.",
+        "explanation": "The late fee was charged even though you paid the minimum due on time. Check your payment dates against the due date and grace period. If correct, raise this with your card issuer.",
+        "guardrail": {
+          "sent": true,
+          "passed": true
+        }
+      }
+    }
+  ],
+  "checks_passed": [
+    {
+      "rule_id": "F15",
+      "status": "ok",
+      "title": "Payment due date is correct",
+      "expected": "2026-10-12",
+      "actual": "2026-10-12",
+      "unit": "date",
+      "calculation": "statement date 2026-09-22 + 20 days",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "id": "2026-09-02-F15"
+    },
+    {
+      "rule_id": "F13",
+      "status": "ok",
+      "title": "GST on fees and interest is 18%",
+      "expected": 210.11,
+      "actual": 210.11,
+      "unit": "INR",
+      "calculation": "18% x 1167.27 (fees + interest + charges)",
+      "evidence": [
+        {
+          "txn_id": "2026-09#02",
+          "date": "2026-09-15",
+          "description": "LATE PAYMENT FEE (EXCL TAX 198.00)",
+          "amount": 1100.0,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-09#03",
+          "date": null,
+          "description": "FORGN CURR MARKUP DB (EXCL TAX 12.11)",
+          "amount": 67.27,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-09#04",
+          "date": null,
+          "description": "IGST DB @ 18.00%",
+          "amount": 210.11,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-09-03-F13"
+    },
+    {
+      "rule_id": "F10",
+      "status": "ok",
+      "title": "Foreign currency markup is 3.5%",
+      "expected": 67.27,
+      "actual": 67.27,
+      "unit": "INR",
+      "calculation": "3.5% x 1922.0 (20.0 USD)",
+      "evidence": [
+        {
+          "txn_id": "2026-09#12",
+          "date": "2026-09-09",
+          "description": "OPENAI *CHATGPT SUBSCR SAN FRANCISCO US 20.00 USD",
+          "amount": 1922.0,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-09#03",
+          "date": null,
+          "description": "FORGN CURR MARKUP DB (EXCL TAX 12.11)",
+          "amount": 67.27,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-09-05-F10"
+    },
+    {
+      "rule_id": "C07",
+      "status": "ok",
+      "title": "Recurring charge unchanged: CUREFIT HEALTHCARE BENGALURU",
+      "expected": 1999.0,
+      "actual": 1999.0,
+      "unit": "INR",
+      "calculation": null,
+      "evidence": [
+        {
+          "txn_id": "2026-07#13",
+          "date": "2026-07-05",
+          "description": "CUREFIT HEALTHCARE BENGALURU IN",
+          "amount": 1999.0,
+          "type": "D",
+          "statement_month": "2026-07"
+        },
+        {
+          "txn_id": "2026-08#11",
+          "date": "2026-08-05",
+          "description": "CUREFIT HEALTHCARE BENGALURU IN",
+          "amount": 1999.0,
+          "type": "D",
+          "statement_month": "2026-08"
+        },
+        {
+          "txn_id": "2026-09#11",
+          "date": "2026-09-05",
+          "description": "CUREFIT HEALTHCARE BENGALURU IN",
+          "amount": 1999.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-09-06-C07"
+    },
+    {
+      "rule_id": "C07",
+      "status": "ok",
+      "title": "Recurring charge unchanged: OPENAI *CHATGPT SUBSCR SAN FRANCISCO",
+      "expected": 1926.0,
+      "actual": 1922.0,
+      "unit": "INR",
+      "calculation": null,
+      "evidence": [
+        {
+          "txn_id": "2026-07#15",
+          "date": "2026-07-09",
+          "description": "OPENAI *CHATGPT SUBSCR SAN FRANCISCO US 20.00 USD",
+          "amount": 1918.0,
+          "type": "D",
+          "statement_month": "2026-07"
+        },
+        {
+          "txn_id": "2026-08#13",
+          "date": "2026-08-09",
+          "description": "OPENAI *CHATGPT SUBSCR SAN FRANCISCO US 20.00 USD",
+          "amount": 1926.0,
+          "type": "D",
+          "statement_month": "2026-08"
+        },
+        {
+          "txn_id": "2026-09#12",
+          "date": "2026-09-09",
+          "description": "OPENAI *CHATGPT SUBSCR SAN FRANCISCO US 20.00 USD",
+          "amount": 1922.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": -4.0,
+      "id": "2026-09-07-C07"
+    },
+    {
+      "rule_id": "C07",
+      "status": "ok",
+      "title": "Recurring charge unchanged: SPOTIFY INDIA MUMBAI",
+      "expected": 119.0,
+      "actual": 119.0,
+      "unit": "INR",
+      "calculation": null,
+      "evidence": [
+        {
+          "txn_id": "2026-07#22",
+          "date": "2026-07-17",
+          "description": "SPOTIFY INDIA MUMBAI IN",
+          "amount": 119.0,
+          "type": "D",
+          "statement_month": "2026-07"
+        },
+        {
+          "txn_id": "2026-08#20",
+          "date": "2026-08-17",
+          "description": "SPOTIFY INDIA MUMBAI IN",
+          "amount": 119.0,
+          "type": "D",
+          "statement_month": "2026-08"
+        },
+        {
+          "txn_id": "2026-09#20",
+          "date": "2026-09-17",
+          "description": "SPOTIFY INDIA MUMBAI IN",
+          "amount": 119.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-09-08-C07"
+    },
+    {
+      "rule_id": "F14",
+      "status": "ok",
+      "title": "Minimum amount due is correct",
+      "expected": 2124.08,
+      "actual": 2124.08,
+      "unit": "INR",
+      "calculation": "GST+EMI+fees+interest 1377.38 + over-limit 0.0 + max(2% of remaining, 200) + overdue minimum 0.0, capped at total due",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-09-09-F14"
+    }
+  ],
+  "notes": [],
+  "coverage": {
+    "C01": {
+      "status": "evaluated"
+    },
+    "C02": {
+      "status": "evaluated"
+    },
+    "C03": {
+      "status": "evaluated"
+    },
+    "C04": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "C05": {
+      "status": "evaluated"
+    },
+    "C06": {
+      "status": "evaluated"
+    },
+    "C07": {
+      "status": "evaluated"
+    },
+    "C08": {
+      "status": "evaluated"
+    },
+    "C09": {
+      "status": "evaluated"
+    },
+    "C10": {
+      "status": "evaluated"
+    },
+    "C11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "C12": {
+      "status": "evaluated"
+    },
+    "F01": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F02": {
+      "status": "evaluated"
+    },
+    "F03": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F04": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F05": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F06": {
+      "status": "evaluated"
+    },
+    "F07": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F08": {
+      "status": "evaluated"
+    },
+    "F09": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F10": {
+      "status": "evaluated"
+    },
+    "F11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F12": {
+      "status": "evaluated"
+    },
+    "F13": {
+      "status": "evaluated"
+    },
+    "F14": {
+      "status": "evaluated"
+    },
+    "F15": {
+      "status": "evaluated"
+    },
+    "F16": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F17": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F18": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F19": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F20": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F21": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F22": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F23": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F24": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F25": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    }
+  },
+  "llm": {
+    "provider": "openai_compatible",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "ai_summary": {
+    "summary": "Two alerts need your attention: the total amount due appears incorrect by Rs. 1,000.00, and a late payment fee of Rs. 1,100.00 was charged despite timely minimum payment.",
+    "actions": [
+      "Review the total amount due discrepancy of Rs. 1,000.00",
+      "Investigate the late payment fee of Rs. 1,100.00 charged despite on-time minimum payment"
+    ],
+    "source": "ai",
+    "guardrail": {
+      "sent": true,
+      "passed": true
+    }
+  }
+}

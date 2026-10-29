@@ -1,0 +1,456 @@
+{
+  "card_id": "CARD_2",
+  "month": "2026-08",
+  "statement_date": "2026-08-22",
+  "generated_at": "2026-10-29T00:12:25",
+  "history_months": [
+    "2026-05",
+    "2026-06",
+    "2026-07"
+  ],
+  "had_previous_statement": true,
+  "headline": {
+    "total_due": 23417.84,
+    "previous_total_due": 25715.15,
+    "change": -2297.31,
+    "minimum_due": 4788.22,
+    "due_date": "2026-09-01",
+    "alerts": 2
+  },
+  "comparison": {
+    "this_month": {
+      "purchases": 19009.82,
+      "emi_instalments": 4341.24,
+      "fees": 0.0,
+      "finance_charges": 0.0,
+      "forex_markup": 0.0,
+      "gst": 66.78,
+      "payments": 25715.15,
+      "refunds": 0.0,
+      "total_amount_due": 23417.84
+    },
+    "last_month": {
+      "purchases": 21296.57,
+      "emi_instalments": 4341.24,
+      "fees": 0.0,
+      "finance_charges": 0.0,
+      "forex_markup": 0.0,
+      "gst": 77.34,
+      "payments": 22693.13,
+      "refunds": 0.0,
+      "total_amount_due": 25715.15
+    },
+    "change": {
+      "purchases": -2286.75,
+      "emi_instalments": 0.0,
+      "fees": 0.0,
+      "finance_charges": 0.0,
+      "forex_markup": 0.0,
+      "gst": -10.56,
+      "payments": 3022.02,
+      "refunds": 0.0,
+      "total_amount_due": -2297.31
+    },
+    "change_drivers": {
+      "total_change": -2297.31,
+      "pushed_the_bill_up": [],
+      "pulled_the_bill_down": [
+        {
+          "item": "card purchases",
+          "this_month": 19009.82,
+          "last_month": 21296.57,
+          "change": -2286.75
+        },
+        {
+          "item": "GST",
+          "this_month": 66.78,
+          "last_month": 77.34,
+          "change": -10.56
+        }
+      ]
+    },
+    "change_explained": "Total due went down by Rs. 2,297.31 versus last month, mainly because of card purchases down Rs. 2,286.75, GST down Rs. 10.56.",
+    "largest_purchases": [
+      {
+        "txn_id": "2026-08#05",
+        "date": "2026-07-23",
+        "merchant": "AMAZON PAY INDIA PRIVA Bangalore",
+        "amount": 3380.0
+      },
+      {
+        "txn_id": "2026-08#06",
+        "date": "2026-07-24",
+        "merchant": "Avenue Supermarts Ltd PUNE",
+        "amount": 3032.96
+      },
+      {
+        "txn_id": "2026-08#18",
+        "date": "2026-08-15",
+        "merchant": "AMAZON PAY INDIA PRIVA Bangalore",
+        "amount": 2816.0
+      },
+      {
+        "txn_id": "2026-08#16",
+        "date": "2026-08-13",
+        "merchant": "Avenue Supermarts Ltd PUNE",
+        "amount": 2258.86
+      },
+      {
+        "txn_id": "2026-08#11",
+        "date": "2026-08-02",
+        "merchant": "BUNDL TECHNOLOGIES BENGALURU",
+        "amount": 1334.0
+      }
+    ]
+  },
+  "alerts": [
+    {
+      "rule_id": "F15",
+      "status": "alert",
+      "title": "Payment due date is earlier than allowed",
+      "expected": "2026-09-11",
+      "actual": "2026-09-01",
+      "unit": "date",
+      "calculation": "statement date 2026-08-22 + 20 days",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "severity": "high",
+      "id": "2026-08-02-F15",
+      "ai": {
+        "source": "ai",
+        "verdict": "agree",
+        "rule_check": "Rule F15 flags when payment due date is earlier than statement date + 20 days",
+        "explanation": "Your payment due date (2026-09-01) is earlier than the required date (statement date 2026-08-22 plus 20 days = 2026-09-11). This does not meet the standard timing requirement. Please raise this with your card issuer.",
+        "guardrail": {
+          "sent": true,
+          "passed": true
+        }
+      }
+    },
+    {
+      "rule_id": "C07",
+      "status": "alert",
+      "title": "Subscription price increase: SPRNG DGTL MEDIA PVT MUMBAI",
+      "expected": 799.0,
+      "actual": 999.0,
+      "unit": "INR",
+      "calculation": "charged 799.0 in each earlier month; history [799.0, 799.0, 799.0, 999.0]",
+      "evidence": [
+        {
+          "txn_id": "2026-06#11",
+          "date": "2026-06-03",
+          "description": "SPRNG DGTL MEDIA PVT MUMBAI IN",
+          "amount": 799.0,
+          "type": "D",
+          "statement_month": "2026-06"
+        },
+        {
+          "txn_id": "2026-07#12",
+          "date": "2026-07-03",
+          "description": "SPRNG DGTL MEDIA PVT MUMBAI IN",
+          "amount": 799.0,
+          "type": "D",
+          "statement_month": "2026-07"
+        },
+        {
+          "txn_id": "2026-08#12",
+          "date": "2026-08-03",
+          "description": "SPRNG DGTL MEDIA PVT MUMBAI IN",
+          "amount": 999.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 200.0,
+      "severity": "medium",
+      "id": "2026-08-05-C07",
+      "ai": {
+        "source": "ai",
+        "verdict": "agree",
+        "rule_check": "Rule C07 flags when this month's charge is higher than last month's; here 999.0 > 799.0 so condition met.",
+        "explanation": "Your subscription charge increased from 799 INR to 999 INR without prior notice. Review the service terms or contact the merchant to confirm the change. If unauthorized, raise this with your card issuer.",
+        "guardrail": {
+          "sent": true,
+          "passed": true
+        }
+      }
+    }
+  ],
+  "checks_passed": [
+    {
+      "rule_id": "C10",
+      "status": "ok",
+      "title": "Total amount due adds up",
+      "expected": 23417.84,
+      "actual": 23417.84,
+      "unit": "INR",
+      "calculation": "25715.15 - 25715.15 - 0.0 + 22980.07 + 437.77 = 23417.84",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-08-01-C10"
+    },
+    {
+      "rule_id": "F13",
+      "status": "ok",
+      "title": "GST on fees and interest is 18%",
+      "expected": 66.78,
+      "actual": 66.78,
+      "unit": "INR",
+      "calculation": "18% x 370.99 (fees + interest + charges)",
+      "evidence": [
+        {
+          "txn_id": "2026-08#03",
+          "date": "2026-08-22",
+          "description": "INTEREST ON EMI",
+          "amount": 370.99,
+          "type": "D"
+        },
+        {
+          "txn_id": "2026-08#04",
+          "date": null,
+          "description": "IGST DB @ 18.00%",
+          "amount": 66.78,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-08-03-F13"
+    },
+    {
+      "rule_id": "C04",
+      "status": "ok",
+      "title": "EMI-B: EMI 4/9 matches the plan",
+      "expected": 4341.24,
+      "actual": 4341.24,
+      "unit": "INR",
+      "calculation": "principal 3970.25 + interest 370.99 (opening 24732.85 x 18%/12)",
+      "evidence": [
+        {
+          "txn_id": "2026-08#02",
+          "date": "2026-08-22",
+          "description": "FP EMI 04/09(EXCL TAX 66.78)",
+          "amount": 3970.25,
+          "type": "M"
+        },
+        {
+          "txn_id": "2026-08#03",
+          "date": "2026-08-22",
+          "description": "INTEREST ON EMI",
+          "amount": 370.99,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-08-04-C04"
+    },
+    {
+      "rule_id": "C07",
+      "status": "ok",
+      "title": "Recurring charge unchanged: GOOGLE *YOUTUBEPREMIUM g.co/helppay#",
+      "expected": 189.0,
+      "actual": 189.0,
+      "unit": "INR",
+      "calculation": null,
+      "evidence": [
+        {
+          "txn_id": "2026-06#15",
+          "date": "2026-06-12",
+          "description": "GOOGLE *YOUTUBEPREMIUM g.co/helppay# IN",
+          "amount": 189.0,
+          "type": "D",
+          "statement_month": "2026-06"
+        },
+        {
+          "txn_id": "2026-07#18",
+          "date": "2026-07-12",
+          "description": "GOOGLE *YOUTUBEPREMIUM g.co/helppay# IN",
+          "amount": 189.0,
+          "type": "D",
+          "statement_month": "2026-07"
+        },
+        {
+          "txn_id": "2026-08#15",
+          "date": "2026-08-12",
+          "description": "GOOGLE *YOUTUBEPREMIUM g.co/helppay# IN",
+          "amount": 189.0,
+          "type": "D"
+        }
+      ],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-08-06-C07"
+    },
+    {
+      "rule_id": "F14",
+      "status": "ok",
+      "title": "Minimum amount due is correct",
+      "expected": 4788.22,
+      "actual": 4788.22,
+      "unit": "INR",
+      "calculation": "GST+EMI+fees+interest 4408.02 + over-limit 0.0 + max(2% of remaining, 200) + overdue minimum 0.0, capped at total due",
+      "evidence": [],
+      "related_rules": [],
+      "allowed_by": null,
+      "difference": 0.0,
+      "id": "2026-08-07-F14"
+    }
+  ],
+  "notes": [],
+  "coverage": {
+    "C01": {
+      "status": "evaluated"
+    },
+    "C02": {
+      "status": "evaluated"
+    },
+    "C03": {
+      "status": "evaluated"
+    },
+    "C04": {
+      "status": "evaluated"
+    },
+    "C05": {
+      "status": "evaluated"
+    },
+    "C06": {
+      "status": "evaluated"
+    },
+    "C07": {
+      "status": "evaluated"
+    },
+    "C08": {
+      "status": "evaluated"
+    },
+    "C09": {
+      "status": "evaluated"
+    },
+    "C10": {
+      "status": "evaluated"
+    },
+    "C11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "C12": {
+      "status": "evaluated"
+    },
+    "F01": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F02": {
+      "status": "evaluated"
+    },
+    "F03": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F04": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F05": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F06": {
+      "status": "evaluated"
+    },
+    "F07": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F08": {
+      "status": "evaluated"
+    },
+    "F09": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F10": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F11": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F12": {
+      "status": "evaluated"
+    },
+    "F13": {
+      "status": "evaluated"
+    },
+    "F14": {
+      "status": "evaluated"
+    },
+    "F15": {
+      "status": "evaluated"
+    },
+    "F16": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F17": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F18": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F19": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F20": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F21": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F22": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F23": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F24": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    },
+    "F25": {
+      "status": "not_applicable",
+      "reason": "no matching charge or event on this statement"
+    }
+  },
+  "llm": {
+    "provider": "openai_compatible",
+    "model": "nvidia/nemotron-3-super-120b-a12b"
+  },
+  "ai_summary": {
+    "summary": "Two alerts need your attention: payment due date moved earlier than expected, and a subscription price increased by Rs. 200.",
+    "actions": [
+      "Review the earlier payment due date of 2026-09-01",
+      "Check the subscription charge from SPRNG DGTL MEDIA PVT MUMBAI now at Rs. 999"
+    ],
+    "source": "ai",
+    "guardrail": {
+      "sent": true,
+      "passed": true
+    }
+  }
+}

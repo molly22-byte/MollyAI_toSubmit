@@ -6,6 +6,7 @@ import streamlit as st
 from ui import custom_rules as cr
 from ui import samples
 from ui.components import esc, md, pill, table
+from ui.rules import id_pill
 
 RESULT_PILL = {"passes": "ok", "could not evaluate": "inf", "not checked": "code"}
 
@@ -102,12 +103,10 @@ def delete_rule(rule_id):
 
 
 def page(go_errorlab):
-    md('<div class="fact"><div class="label">Write your own rule</div>Build a rule from one of four templates and test '
-       'it on the sample statements or in the Error Lab. No code is typed or run: every choice comes from fixed lists and '
-       'checked numbers, and a rule that cannot be evaluated shows <i>could not evaluate</i> with the reason while '
-       'everything else keeps working. Your rules run after the audit engine, on the same masked statement. They are '
-       'saved on the server for everyone with the judge passkey (public visitors never see them) and appear as a '
-       'choice in the Error Lab; the engine and the official rulebook are never changed.</div>')
+    md('<div class="steps mini"><div><b>1</b>Build from a template</div><div><b>2</b>Save it</div>'
+       '<div><b>3</b>Test on samples</div><div><b>4</b>Use in the Error Lab</div></div>')
+    st.caption("No code is typed or run - every choice comes from fixed lists. The engine and the rulebook are never "
+               "changed; rules are shared by everyone with the judge passkey.")
 
     with st.container(border=True):
         md(f'<div class="sec">New rule <span class="muted">&middot; up to {cr.MAX_RULES}, shared by all judges</span></div>')
@@ -130,7 +129,7 @@ def page(go_errorlab):
             st.caption("No rules yet - build one above or load the examples.")
         for r in rules:
             c1, c2 = st.columns([6, 1], vertical_alignment="center")
-            c1.markdown(f'{pill(r["id"], "code")} <b>{esc(r.get("name", "(no name)"))}</b> {pill(str(r.get("severity", "medium")), "inf")}'
+            c1.markdown(f'{id_pill(r["id"])} <b>{esc(r.get("name", "(no name)"))}</b> {pill(str(r.get("severity", "medium")), "inf")}'
                         f'<br><span class="muted">{esc(cr.describe(r))}</span>', unsafe_allow_html=True)
             c2.button("Delete", key=f"cr_del_{r['id']}", on_click=delete_rule, args=(r["id"],))
 
@@ -153,7 +152,7 @@ def page(go_errorlab):
                 label = cr.result_label(found)
                 details = "<br>".join(esc(f["title"]) for f in found if f["status"] in ("alert", "error")) \
                     or f'<span class="muted">{esc(found[0]["title"])}</span>'
-                rows.append([f'{pill(r["id"], "code")} {esc(r.get("name", "(no name)"))}', pill(label, RESULT_PILL.get(label, "bad")), details])
+                rows.append([f'{id_pill(r["id"])} {esc(r.get("name", "(no name)"))}', pill(label, RESULT_PILL.get(label, "bad")), details])
             md(table(["Rule", "Result", "Details"], rows))
         if every:
             rows = []
