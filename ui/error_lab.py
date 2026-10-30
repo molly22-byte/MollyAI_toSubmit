@@ -17,7 +17,7 @@ from ui import answer_key_view, custom_rules, rules, samples
 from ui import error_lab_presets as lab
 from ui.components import esc, md, pill, table
 
-STATUS_PILL = {"CAUGHT": "ok", "CORRECTLY IGNORED": "ok", "MISSED": "bad", "FALSE ALARM": "bad",
+STATUS_PILL = {"CAUGHT": "bad", "CORRECTLY IGNORED": "ok", "MISSED": "bad", "FALSE ALARM": "bad",
                "NOT COVERED BY POLICY": "inf"}
 
 
@@ -272,10 +272,10 @@ def results(r, on_open_rule, go_report):
         md('<div class="sec">Did the agent catch it?</div>')
         t = r["tally"]
         md(f'<div class="stats">'
-           f'<div class="stat"><span class="k">Changes made</span><b>{r["changes"]}</b></div>'
-           f'<div class="stat"><span class="k">Caught</span><b style="color:var(--ok)">{t["CAUGHT"]}</b></div>'
-           f'<div class="stat"><span class="k">Missed</span><b style="color:{"var(--alert)" if t["MISSED"] else "var(--primary)"}">{t["MISSED"]}</b></div>'
-           f'<div class="stat"><span class="k">Not covered</span><b>{t["NOT COVERED BY POLICY"]}</b></div>'
+           f'<div class="stat"><span class="k">Changes made</span> <b>{r["changes"]}</b></div>'
+           f'<div class="stat"><span class="k">Caught</span> <b style="color:var(--alert)">{t["CAUGHT"]}</b></div>'
+           f'<div class="stat"><span class="k">Missed</span> <b style="color:{"var(--alert)" if t["MISSED"] else "var(--primary)"}">{t["MISSED"]}</b></div>'
+           f'<div class="stat"><span class="k">Not covered</span> <b>{t["NOT COVERED BY POLICY"]}</b></div>'
            f'</div>')
         if t["CORRECTLY IGNORED"] or t["FALSE ALARM"]:
             st.caption(f"Correctly ignored: {t['CORRECTLY IGNORED']} · False alarms: {t['FALSE ALARM']}")

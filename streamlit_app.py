@@ -489,10 +489,17 @@ def nav(current, ws="upload"):
         c1.markdown(BRAND, unsafe_allow_html=True)
         with c2:
             with st.container(horizontal=True, horizontal_alignment="right", vertical_alignment="center", gap="small"):
+                # Read the click from the return value, not on_click: after a long idle the server may start a
+                # fresh session that has no callbacks yet, and an on_click button would do nothing on first click.
+                target = None
                 for name, label in NAV:
-                    st.button(label, key=f"nav_{name}_{'act' if name == active else 'idle'}", type="tertiary",
-                              on_click=go, args=(name,))
-                st.button("Upload statement", key="nav_cta", on_click=go, args=("analyze",))
+                    if st.button(label, key=f"nav_{name}_{'act' if name == active else 'idle'}", type="tertiary"):
+                        target = name
+                if st.button("Upload statement", key="nav_cta"):
+                    target = "analyze"
+    if target:
+        go(target)
+        st.rerun()
 
 
 def set_confirm_reset(value):

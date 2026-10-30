@@ -9,6 +9,8 @@ headingFont = "Playfair Display:https://fonts.googleapis.com/css2?family=Playfai
 
 [server]
 maxUploadSize = 10
+# Keep a visitor's session for an hour if the connection drops (background tab, sleep), instead of 2 minutes.
+disconnectedSessionTTL = 3600
 
 [client]
 toolbarMode = "minimal"
